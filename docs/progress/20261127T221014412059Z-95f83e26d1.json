@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-27T22:10:14.412059+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/public-software/DATA-RULES.md",
+      "change": "A",
+      "git_blob": "0807b185bf8139d7e186659fd531a020e26875e1"
+    },
+    {
+      "path": "docs/public-software/LAUNCH-CHECKLIST.md",
+      "change": "A",
+      "git_blob": "4b7e15a460218c0d6545c4b49027353c427d25b1"
+    },
+    {
+      "path": "docs/public-software/LOGIN-RULES.md",
+      "change": "A",
+      "git_blob": "2d27a852ed2da11c849b0c72336e97a26df8591f"
+    },
+    {
+      "path": "docs/public-software/SECURITY-RULES.md",
+      "change": "A",
+      "git_blob": "abeee6e80553d71ab08dbb85fb73f563e1148dc9"
+    },
+    {
+      "path": "docs/public-software/THREAT-MAP.md",
+      "change": "A",
+      "git_blob": "8b343115c46d0649fea2f10e1a9e157b4c67c213"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

@@ -1,0 +1,114 @@
+# Security rules: Martha Silva web store
+
+Version: 0.1
+Date: 2026-11-27
+Status: draft, awaiting Jason's approval
+Approval: pending
+Scope: storefront (Cloudflare Worker `martha-silva-preview`), hub API `ca-savia-api` (Azure Container Apps, Azure SQL), store node TIENDA1 (store PC), CI/CD.
+Code references are file:line at commit `40132952` (branch `Tony`); lines drift after that commit.
+Related documents: [THREAT-MAP](THREAT-MAP.md), [LOGIN-RULES](LOGIN-RULES.md), [DATA-RULES](DATA-RULES.md).
+
+## How to read this document
+
+Each control has one ID, one status and one evidence link.
+`built` means the code or configuration exists in the repository.
+`tested` means a named test or a repository evidence file exercises the control.
+`gap` means the control is missing, or it exists outside the repository and has no readback.
+A value marked "proposal" needs Jason's decision.
+Paths with a folder are relative to the repository root.
+Short file names resolve as follows.
+`*Tests.cs` files are in `savia/tests/Savia.Tests/`; `WebStore.cs`, `Sync.cs`, `Auth.cs` and `Tags.cs` are in `savia/src/Savia.Application/`; other `.cs` files are in `savia/src/Savia.Api/`.
+`AZURE.md` and `RUNBOOK.md` are in `savia/docs/deploy/`; `STOREFRONT-DEPLOY.md`, `STORE-PC-20261124.md` and `public-api-azure/run-20261124.json` are in `docs/production-20261122/`; `main.bicep` is in `savia/deploy/azure/`.
+
+## 1. Input validation before save
+
+| ID | Rule | Where | Status | Evidence or note |
+| --- | --- | --- | --- | --- |
+| SEC-01 | The public order body is strict JSON; unknown fields are refused with 400 `validation`. | `savia/src/Savia.Api/PublicEndpoints.cs:21-24,140-160` | tested | `savia/tests/Savia.Tests/WebStorePublicTests.cs` (`Unknown_field_is_400`); Azure probe `docs/production-20261122/public-api-azure/run-20261124.json`. |
+| SEC-02 | Every order field is checked and trimmed before save: 1-20 lines, quantity 1-10, no repeated SKU, length limits per field, email shape, provider `manual` or `card`, locale `es` or `en`, bot token up to 2048 characters. | `savia/src/Savia.Application/WebStore.cs:54-55,73-91,214-220` | built | No test exercises each field limit. The email check is minimal (an `@` not at either end). |
+| SEC-03 | A public request body is capped at 16 KB while it is read, not only from `Content-Length`. | `PublicEndpoints.cs:19,140-150,173-191` | tested | `WebStorePublicTests.cs` (`Body_over_16_KB_is_413`); Azure probe `run-20261124.json`. |
+| SEC-04 | `Idempotency-Key` must be a UUID; a reused key with a different body is refused (409 `idempotency_conflict`). | `PublicEndpoints.cs:49-61` | tested | `savia/tests/Savia.Tests/WebOrderVerticalSliceTests.cs:37` (409 `idempotency_conflict`); `savia/db/tests/webstore/090_web_order_replay_and_unpaid_limit.sql`. A non-UUID key is not tested. |
+| SEC-05 | Every staff route validates its body before save. | services under `savia/src/Savia.Application/` | gap | Validation exists in services (example: `WebOrderVerticalSlicePaymentReviewTests.cs:38-39`), but no inventory proves every staff input is checked. Audit owed. |
+| SEC-06 | The sync push body has a size cap and a schema check at the endpoint. | `savia/src/Savia.Api/SyncEndpoints.cs:40-44` | gap | The body is read whole with no cap beyond the framework default. The hub refuses rows owned by another node (`SyncTransportTests.cs`, `Hub_refuses_rows_owned_by_another_node`). |
+| SEC-07 | A tag photo upload is multipart only, staff only, at most 6 MB, and read locally (no external OCR). | `savia/src/Savia.Api/TagsEndpoints.cs:16-37`; `savia/src/Savia.Application/Tags.cs:32` | built | No test sends a photo over 6 MB. |
+| SEC-08 | SQL runs as stored procedures or fixed SQL text, always with typed parameters; user text never becomes SQL text. | `savia/src/Savia.Infrastructure/SqlGateway.cs:40-75` | built | A manual search at `40132952` found no SQL built by string interpolation; no automated check exists. |
+| SEC-09 | Staff screens write buyer text with `textContent`; `innerHTML`, `outerHTML` and `insertAdjacentHTML` are banned in `savia/web`. | `savia/tools/rules.py:89`; CI `.github/workflows/savia-v2.yml:52` | tested | `savia/tests/test_rules.py`. |
+| SEC-10 | The storefront escapes catalog and order text before it inserts HTML. | `src/app.js` (`esc()` in templates) | built | No test injects markup into storefront templates. |
+
+## 2. Secrets
+
+| ID | Rule | Where | Status | Evidence or note |
+| --- | --- | --- | --- | --- |
+| SEC-11 | No secret, key file, `.env`, database or cookie file enters a commit. | pre-commit hook `.githooks/pre-commit` calling `tools/progress.py:45-55,99-105` | tested | `tests/test_progress.py` (`test_secret_in_index_blocks_even_if_worktree_cleaned`, `test_frozen_import_retains_secret_and_mode_guards`). The pattern list covers only a few token formats. |
+| SEC-12 | A full-history secret scan (for example gitleaks) runs in CI and before each release. | none | gap | No scanner in `.github/workflows/`. The last full review was manual (`docs/SECURITY.md`, 2026-10-24). |
+| SEC-13 | The hub reaches Azure SQL with managed identities; no SQL password exists for the hub. | `savia/deploy/azure/main.bicep:7,93-99,283` | built | Readback of the API connection string in `docs/production-20261122/STORE-PC-20261124.md` (H2 section). |
+| SEC-14 | The Turnstile secret lives only in the Container App secret `turnstile-secret`, read as `secretref`; it is never printed. | Azure, set by CLI; recorded in `savia/docs/deploy/AZURE.md:183` | built | Not in `main.bicep`. `STOREFRONT-DEPLOY.md:39` and `RUNBOOK.md:185` say Key Vault; they disagree with AZURE.md and must be corrected. Proposal: move it to a Key Vault reference. |
+| SEC-15 | Key Vault uses RBAC only, soft delete 90 days and purge protection; only the API identity reads secrets. | `main.bicep:165-180,510-515` | built | The operator account has no data role (`STORE-PC-20261124.md:22`). |
+| SEC-16 | The sync API refuses any call without a valid node credential. | `savia/src/Savia.Application/Sync.cs:42-49,67-72`; `savia/deploy/store-pc/start-store.ps1:1` | tested | `SyncTransportTests.cs` (`Hub_refuses_a_call_without_a_valid_node_credential`); Azure probe 401 in `run-20261124.json`. The hub keeps only the SHA-256 of the secret and the store keeps it in a DPAPI file for one Windows user (built; see LOGIN-19). The Key Vault path (RUNBOOK 3.1) has not run. |
+| SEC-17 | CI signs in to Azure with OIDC from the `production` environment only; no Azure secret is stored in GitHub; actions are pinned by commit SHA. | `main.bicep:100-111`; `.github/workflows/savia-azure.yml:116-125` | built | The deploy job has not run on GitHub (`savia/docs/deploy/CHECKLIST.md:15`); deploys so far were manual. |
+| SEC-18 | Production settings set by CLI are in code, so a template redeploy cannot drop them. | `main.bicep` env list (around line 335-365) | gap | `Savia__Public__AllowedOrigins`, `Savia__Public__OrderPageUrl` and the Turnstile `secretref` are absent from `main.bicep`. A redeploy with `deployApps=true` would likely replace the env list, and orders would then fail closed (inference from the template, not tested). |
+
+## 3. Encryption
+
+| ID | Rule | Where | Status | Evidence or note |
+| --- | --- | --- | --- | --- |
+| SEC-19 | The storefront is HTTPS only and sends HSTS (one year, subdomains). | `build-inputs/static/_headers`; `dist/_headers:9` | tested | `tests/static_headers.py` (run by `tests/check.py:93`). `STOREFRONT-DEPLOY.md:4` and `:76` disagree on HSTS; the built file has it. |
+| SEC-20 | The hub ingress refuses plain HTTP; the app adds HSTS outside Development. | `main.bicep:307`; `savia/src/Savia.Api/Hosting.cs:79` | built | The hub HSTS header is not asserted by a test. |
+| SEC-21 | Hub to Azure SQL uses TLS 1.2 or later with certificate validation. | `main.bicep:190,283` (`Encrypt=True;TrustServerCertificate=False`) | built | |
+| SEC-22 | Azure SQL data and backups are encrypted at rest (TDE). | Azure platform default; not set in `main.bicep` | gap | Readback owed (`az sql db tde show`). |
+| SEC-23 | Store-to-hub sync uses HTTPS. | `start-store.ps1:27` | built | |
+| SEC-24 | Store PC data is encrypted at rest and backups leave the PC encrypted. | store PC | gap | SQL Server Express has no TDE; no BitLocker evidence; backups stay on the same disk (`STORE-PC-20261124.md:68`). Local SQL uses `TrustServerCertificate=True` on loopback only (`start-store.ps1:21`). |
+| SEC-25 | Bearer secrets are stored only as hashes: order access token, client address, request body, staff session token, node secret. | `PublicEndpoints.cs:162-164`; `WebStore.cs:236-240`; `savia/src/Savia.Application/Auth.cs:55,62`; `Sync.cs:49` | built | `WebOrderVerticalSliceTests.cs` (`Order_status_needs_its_token`) proves the token is required, not that only the hash is stored. Staff token hashing is tested under LOGIN-03. |
+
+## 4. Updates and patches
+
+| ID | Rule | Where | Status | Evidence or note |
+| --- | --- | --- | --- | --- |
+| SEC-26 | Builds restore locked dependencies; base images are pinned by digest. | `savia/Dockerfile:8-9`; `savia-azure.yml:50`; `.github/workflows/ci.yml:108` (`npm ci`) | built | |
+| SEC-27 | A dependency vulnerability scan runs in CI (.NET, npm). | none | gap | `npm ci --no-audit`; no Dependabot; no `dotnet list package --vulnerable`. |
+| SEC-28 | Patch cadence (proposal): critical CVE in a used component within 72 hours; .NET SDK and runtime digest bump monthly; npm and Wrangler monthly; store PC Windows Update automatic and SQL Express cumulative update checked monthly. | this document | gap | Proposal only. No owner or calendar exists yet. |
+
+## 5. Rate limits and abuse
+
+| ID | Rule | Where | Status | Evidence or note |
+| --- | --- | --- | --- | --- |
+| SEC-29 | Public routes allow 60 requests per client address per minute (fixed window, no queue); excess gets 429 `rate_limited`. | `savia/src/Savia.Api/WebStoreHosting.cs:44-59` | tested | `WebStorePublicTests.cs` (`Too_many_requests_from_one_client_is_429`); Azure probe: 70 GETs gave 60 × 200 and 10 × 429 (`run-20261124.json`). The counter is in memory per replica; with 2 replicas the real limit can reach 120. |
+| SEC-30 | Staff sign-in and password change allow 10 attempts per client address per minute on Azure. | `Hosting.cs:46-55`; `main.bicep:357` | tested | `savia/tests/Savia.Tests/HostingTests.cs` (`Login_limit_is_per_client_address_and_ignores_forged_earlier_hops`). The value 10 is not exercised on Azure, and the password route limit is not tested. Account lockout belongs to LOGIN-RULES. |
+| SEC-31 | The client address is the proxy's last hop only; a forged `X-Forwarded-For` is ignored. | `Hosting.cs:32-41` | tested | Same HostingTests test as SEC-30. |
+| SEC-32 | At most 2 unpaid orders per email and per client address hash. | `savia/db/migrations/V049__web_order.sql`; error 51746 | tested | `savia/db/tests/webstore/090_web_order_replay_and_unpaid_limit.sql`. |
+| SEC-33 | Staff routes, sync routes, `/health/ready` and `/openapi/v1.json` have a rate limit. | none | gap | Only sign-in and public routes are limited. `/health/ready` opens a SQL connection on each call. |
+
+## 6. CORS, bot check and payments
+
+| ID | Rule | Where | Status | Evidence or note |
+| --- | --- | --- | --- | --- |
+| SEC-34 | CORS applies to public routes only: listed origins, GET and POST, three headers, never credentials. | `WebStoreHosting.cs:35-43,63-64` | tested | `WebStorePublicTests.cs` (`Cors_allows_only_listed_origins_without_credentials`); Azure probe `run-20261124.json`. |
+| SEC-35 | Turnstile is checked server-side before any stock is reserved; a missing secret or no siteverify answer refuses the order. | `savia/src/Savia.Api/BotCheck.cs:20-44`; `PublicEndpoints.cs:67-68` | tested | `WebOrderVerticalSliceTests.cs` (`Failed_bot_check_reserves_nothing`); Azure probe 403 with no secret (`run-20261124.json`). |
+| SEC-36 | With the secret set, a forged token is refused through siteverify. | Azure revision `ca-savia-api--0000003` | built | Operator note in `AZURE.md:183` only; no raw probe file in the repository. |
+| SEC-37 | A real Turnstile token passes end to end from the live storefront. | storefront live mode plus hub | gap | Not run. |
+| SEC-38 | `Savia:Public:BotCheck=disabled` can never take effect in Production. | `WebStoreHosting.cs:27-29` | gap | No start-up guard; only operator discipline. |
+| SEC-39 | Only a server-side provider answer records a payment; a browser return alone never marks an order paid. | `savia/src/Savia.Api/Payments.cs:5-7,86-91`; `PublicEndpoints.cs:112-128` | tested | `WebStorePublicTests.cs` (`A_browser_claim_alone_is_never_a_verified_payment`); `WebOrderVerticalSliceTests.cs` (`Card_return_is_not_payment_until_the_gateway_confirms_and_webhooks_must_be_signed`). |
+| SEC-40 | A webhook signature is checked before the body is read; a repeat delivery records nothing new. | `Payments.cs:39-40`; `WebStore.cs:246` | tested | Fake gateway only: `WebStorePublicTests.cs` (`Fake_gateway_rejects_an_unsigned_webhook_before_reading_it`). |
+| SEC-41 | The real card provider's webhook signature and return confirmation are implemented and tested. | none | gap | No card provider exists (merchant account missing). |
+| SEC-42 | The store never collects or stores card numbers; card entry happens only on the provider's hosted page. | `Payments.cs` (manual provider only); storefront has no card fields | built | Card data rules are in DATA-RULES. |
+
+## 7. Headers, errors and logs
+
+| ID | Rule | Where | Status | Evidence or note |
+| --- | --- | --- | --- | --- |
+| SEC-43 | The storefront sends CSP (script by hash, `frame-ancestors 'none'`), `nosniff`, Referrer-Policy, Permissions-Policy, COOP and `X-Robots-Tag: noindex` until launch. | `build-inputs/static/_headers`; `dist/_headers:2-10` | tested | `tests/static_headers.py`. `style-src` still allows `'unsafe-inline'`. Live readback: `STOREFRONT-DEPLOY.md:4-6`. |
+| SEC-44 | The hub sends CSP (`default-src 'self'`, `frame-ancestors 'none'`), `nosniff` and `Referrer-Policy: no-referrer` on every response. | `Hosting.cs:24-26,80-87` | tested | `HostingTests.cs` (`Every_response_carries_the_security_headers`). |
+| SEC-45 | Public routes answer only public error codes; an internal error says "Error interno." plus a trace id. | `PublicEndpoints.cs:173-220` | tested | `WebStorePublicTests.cs` (`AssertPublicAsync` checks the public code). |
+| SEC-46 | Application logs name order ids, paths and error codes, never contact details; the client address is kept only as a hash. | `PublicEndpoints.cs:123,162-164,195`; `WebStoreHosting.cs:90,109,134,161` | built | No test asserts it. Several lines log `ex.Message`, whose content is not reviewed. |
+| SEC-47 | Telemetry (Application Insights) holds no personal data: client IP masking and URL contents are confirmed. | `Hosting.cs:63-74`; `main.bicep:361-362` | gap | Readback owed. `TelemetryTests.cs` only proves the host starts. |
+| SEC-48 | The OpenAPI document is not public in Production. | `savia/src/Savia.Api/Program.cs:22` | gap | `/openapi/v1.json` answers 200 on Azure (`savia/docs/deploy/AZURE.md:168`) and lists staff routes. Proposal: map it only outside Production. |
+
+## Overlap with LOGIN-RULES
+
+Some controls appear in both documents; the launch checklist keeps one row for each pair.
+SEC-29 and LOGIN-10 (public rate limit); SEC-30, SEC-31 and LOGIN-09 (sign-in limit); SEC-16 and LOGIN-19 (node credential); SEC-17 and LOGIN-25 (deploy identity).
+
+## Open contradictions in existing documents
+
+- Turnstile secret location: Container App secret (`AZURE.md:183`) versus Key Vault (`STOREFRONT-DEPLOY.md:39`, `RUNBOOK.md:185`).
+- HSTS: added (`STOREFRONT-DEPLOY.md:4`) versus "waits for the final domain" (`STOREFRONT-DEPLOY.md:76`); `dist/_headers` has it.
