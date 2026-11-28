@@ -67,12 +67,12 @@ No staging hub exists: `ca-savia-api` is production, so active scans run against
 
 | ID | Test | Target | Status |
 | --- | --- | --- | --- |
-| ST-1 | OWASP ZAP baseline (passive) scan. | Preview storefront `martha-silva-preview.jason-suazof.workers.dev`, demo and live mode. | Not run. |
+| ST-1 | OWASP ZAP baseline (passive) scan. | Preview storefront `martha-silva-preview.jason-suazof.workers.dev`, demo and live mode. | Run 2026-11-27, passive, demo mode only: 0 FAIL, 7 WARN, 61 PASS (`docs/public-software/evidence/scans-20261127/SUMMARY.md`). Live mode not run. |
 | ST-2 | OWASP ZAP API scan from `/openapi/v1.json`, signed out and signed in, with order-body fuzzing. | A disposable local hub with a throwaway database, never `ca-savia-api`. | Not run. Proposal. |
-| ST-3 | Dependency scan: `dotnet list package --vulnerable --include-transitive` and `npm audit`. | Repository. | Not run. |
-| ST-4 | Full-history secret scan (for example gitleaks). | Repository, all reachable commits. | Not run. |
+| ST-3 | Dependency scan: `dotnet list package --vulnerable --include-transitive` and `npm audit`. | Repository. | Run 2026-11-27: PASS, 0 vulnerable packages in 7 .NET projects and 0 npm findings in 3 lockfiles (`docs/public-software/evidence/scans-20261127/SUMMARY.md`). Not in CI (SEC-27). |
+| ST-4 | Full-history secret scan (for example gitleaks). | Repository, all reachable commits. | Partial run 2026-11-27: gitleaks stopped after 964 of about 1,290 commits (partial clone, 34 blobs missing); 2,915 raw hits, 0 real-looking credentials (`docs/public-software/evidence/scans-20261127/SUMMARY.md`). |
 | ST-5 | Role-by-route authorization test for every staff route. | `savia/tests/Savia.Tests`. | Not written. |
-| ST-6 | Container image scan (for example Trivy). | `savia-api` image. | Not run. |
+| ST-6 | Container image scan (for example Trivy). | `savia-api` image. | Run 2026-11-27 on image `c7e30bc4`: 6 HIGH, 0 CRITICAL, all fixable by a newer runtime base image; the app layer has 0 (`docs/public-software/evidence/scans-20261127/SUMMARY.md`). |
 | ST-7 | Paid external penetration test. | Storefront and hub. | Optional; Jason's money decision. |
 
 ## Not covered or not provable from the repository

@@ -1,0 +1,11 @@
+Trivy HIGH,CRITICAL view of st6-trivy-full.json (derived; no new scan)
+Image: acrsaviabukmlt.azurecr.io/savia-api:c7e30bc41a837daa7d999f817b81d3609796ebed
+ImageID: sha256:cf0cf039b09304ee08c19ae30772a8efa25a580a0c69180068486badd69e3a71
+OS: {"Family":"ubuntu","Name":"24.04"}
+
+HIGH | CVE-2026-109518 | apt | 2.8.3 | fixed=2.8.4ubuntu0.1 | acrsaviabukmlt.azurecr.io/savia-api:c7e30bc41a837daa7d999f817b81d3609796ebed (ubuntu 24.04)
+HIGH | CVE-2026-109518 | libapt-pkg6.0t64 | 2.8.3 | fixed=2.8.4ubuntu0.1 | acrsaviabukmlt.azurecr.io/savia-api:c7e30bc41a837daa7d999f817b81d3609796ebed (ubuntu 24.04)
+HIGH | CVE-2026-114146 | Microsoft.AspNetCore.App.Runtime.linux-x64 | 10.0.13 | fixed=8.0.34, 9.0.23, 10.0.15, 11.0.0 | usr/share/dotnet/shared/Microsoft.AspNetCore.App/10.0.13/Microsoft.AspNetCore.App.deps.json
+HIGH | CVE-2026-114147 | Microsoft.AspNetCore.App.Runtime.linux-x64 | 10.0.13 | fixed=8.0.34, 9.0.23, 10.0.15, 11.0.0 | usr/share/dotnet/shared/Microsoft.AspNetCore.App/10.0.13/Microsoft.AspNetCore.App.deps.json
+HIGH | CVE-2026-114149 | Microsoft.AspNetCore.App.Runtime.linux-x64 | 10.0.13 | fixed=8.0.34, 9.0.23, 10.0.15, 11.0.0 | usr/share/dotnet/shared/Microsoft.AspNetCore.App/10.0.13/Microsoft.AspNetCore.App.deps.json
+HIGH | GHSA-p3jp-9v83-76w9 | Microsoft.NETCore.App.Runtime.linux-x64 | 10.0.13 | fixed=8.0.33, 9.0.22, 10.0.14, 11.0.0-rc.3.26522.148 | usr/share/dotnet/shared/Microsoft.NETCore.App/10.0.13/Microsoft.NETCore.App.deps.json

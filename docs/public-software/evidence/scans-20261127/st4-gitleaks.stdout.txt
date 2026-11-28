@@ -1,0 +1,13 @@
+
+    ○
+    │╲
+    │ ○
+    ○ ░
+    ░    gitleaks
+
+[90m1:36AM[0m [31mERR[0m [1m[git] fatal: unterminated line in .git/packed-refs: ...[0m
+[90m1:36AM[0m [31mERR[0m [1m[git] fatal: could not fetch f7f17b0f792586ce3d296e6bcb78b4e046a905d1 from promisor remote[0m
+[90m1:36AM[0m [31mERR[0m [36merror=[0m[31m[1m"stderr is not empty"[0m[0m
+[90m1:36AM[0m [32mINF[0m [1m964 commits scanned.[0m
+[90m1:36AM[0m [32mINF[0m [1mscanned ~4768909436 bytes (4.77 GB) in 44m17s[0m
+[90m1:36AM[0m [33mWRN[0m [1mleaks found: 2915[0m

@@ -1,0 +1,135 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-28T01:39:56.351929+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/public-software/LAUNCH-CHECKLIST.md",
+      "change": "M",
+      "git_blob": "4123ad5faa1178ce011b0eb2feff2c6939ff708d"
+    },
+    {
+      "path": "docs/public-software/THREAT-MAP.md",
+      "change": "M",
+      "git_blob": "ab2f0f8dccb05855ba7caa755c731d9174928e38"
+    },
+    {
+      "path": "docs/public-software/evidence/scans-20261127/SUMMARY.md",
+      "change": "A",
+      "git_blob": "e2b7598c5b300c347ba0cbe90695e8fa3c896f8a"
+    },
+    {
+      "path": "docs/public-software/evidence/scans-20261127/image-digests.txt",
+      "change": "A",
+      "git_blob": "41601d10b2df38c06aa858813131f404af3fac02"
+    },
+    {
+      "path": "docs/public-software/evidence/scans-20261127/st-start-time-utc.txt",
+      "change": "A",
+      "git_blob": "060e36b3c185c730bbcb4128bc85b85b914ce9df"
+    },
+    {
+      "path": "docs/public-software/evidence/scans-20261127/st1-zap.html",
+      "change": "A",
+      "git_blob": "e04d7a740c0d96f002eda5e07f0afbd589fcf311"
+    },
+    {
+      "path": "docs/public-software/evidence/scans-20261127/st1-zap.json",
+      "change": "A",
+      "git_blob": "486c998ec9beef87037d7c61c0c266ab8f22bb22"
+    },
+    {
+      "path": "docs/public-software/evidence/scans-20261127/st1-zap.stdout.txt",
+      "change": "A",
+      "git_blob": "a802835c16b39a5ef8aecbb225634d3d1d26f2a1"
+    },
+    {
+      "path": "docs/public-software/evidence/scans-20261127/st3-dotnet-version.txt",
+      "change": "A",
+      "git_blob": "6d0ce697fc9449f2dabe3bf8b08e401d06df140b"
+    },
+    {
+      "path": "docs/public-software/evidence/scans-20261127/st3-dotnet-vulnerable.txt",
+      "change": "A",
+      "git_blob": "af5fbf31869b98f42a686e203de6ad7136038642"
+    },
+    {
+      "path": "docs/public-software/evidence/scans-20261127/st3-npm-audit-root.json",
+      "change": "A",
+      "git_blob": "8571f63c762ef7c24bde59a84a369f4aac29052b"
+    },
+    {
+      "path": "docs/public-software/evidence/scans-20261127/st3-npm-audit-root.stderr.txt",
+      "change": "A",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": "docs/public-software/evidence/scans-20261127/st3-npm-audit-savia.json",
+      "change": "A",
+      "git_blob": "4bdcb996dc90a0e1df1d2fab1033dceed0fb9a77"
+    },
+    {
+      "path": "docs/public-software/evidence/scans-20261127/st3-npm-audit-savia.stderr.txt",
+      "change": "A",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": "docs/public-software/evidence/scans-20261127/st3-npm-audit-tests-frontend-deps.json",
+      "change": "A",
+      "git_blob": "1e921c0831ba1ebcaaf5a882671f4301614e1bef"
+    },
+    {
+      "path": "docs/public-software/evidence/scans-20261127/st3-npm-audit-tests-frontend-deps.stderr.txt",
+      "change": "A",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": "docs/public-software/evidence/scans-20261127/st3-npm-version.txt",
+      "change": "A",
+      "git_blob": "6f51726ce2400ff33b0656ef01daffee04dccabb"
+    },
+    {
+      "path": "docs/public-software/evidence/scans-20261127/st4-classify.js",
+      "change": "A",
+      "git_blob": "372ee760913ccec37a6c9953f8e617254cd94221"
+    },
+    {
+      "path": "docs/public-software/evidence/scans-20261127/st4-gitleaks-classification.txt",
+      "change": "A",
+      "git_blob": "f6349d0318aee7acdc52bc3dced3d061236468b5"
+    },
+    {
+      "path": "docs/public-software/evidence/scans-20261127/st4-gitleaks.json",
+      "change": "A",
+      "git_blob": "b61ed0c0820fddf488a83af45fc013b7bbf27848"
+    },
+    {
+      "path": "docs/public-software/evidence/scans-20261127/st4-gitleaks.stdout.txt",
+      "change": "A",
+      "git_blob": "3bf3860f66cf5ae82c392127c5042b6ce468da74"
+    },
+    {
+      "path": "docs/public-software/evidence/scans-20261127/st6-trivy-full.json",
+      "change": "A",
+      "git_blob": "2a5195de51edd3269a73dd24022c8dabaaa39746"
+    },
+    {
+      "path": "docs/public-software/evidence/scans-20261127/st6-trivy-high-critical.txt",
+      "change": "A",
+      "git_blob": "60c4ee371e3d240c10cf909ad794a64e74ae1387"
+    },
+    {
+      "path": "docs/public-software/evidence/scans-20261127/st6-trivy-run.stdout.txt",
+      "change": "A",
+      "git_blob": "27ae388b81d1e48829b066c8a5df239a8679740f"
+    },
+    {
+      "path": "docs/public-software/evidence/scans-20261127/zap.yaml",
+      "change": "A",
+      "git_blob": "1e070d35305310525fe11cacb3470878820bef97"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}
