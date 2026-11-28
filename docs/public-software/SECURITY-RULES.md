@@ -40,7 +40,7 @@ Short file names resolve as follows.
 | ID | Rule | Where | Status | Evidence or note |
 | --- | --- | --- | --- | --- |
 | SEC-11 | No secret, key file, `.env`, database or cookie file enters a commit. | pre-commit hook `.githooks/pre-commit` calling `tools/progress.py:45-55,99-105` | tested | `tests/test_progress.py` (`test_secret_in_index_blocks_even_if_worktree_cleaned`, `test_frozen_import_retains_secret_and_mode_guards`). The pattern list covers only a few token formats. |
-| SEC-12 | A full-history secret scan (for example gitleaks) runs in CI and before each release. | none | gap | No scanner in `.github/workflows/`. The last full review was manual (`docs/SECURITY.md`, 2026-10-24). |
+| SEC-12 | A full-history secret scan (for example gitleaks) runs in CI and before each release. | none | tested | `.github/workflows/security-scans.yml` job `secrets`: gitleaks (pinned by digest) on all refs with `.gitleaks.toml` and 15 reviewed fingerprints in `.gitleaksignore`; CI run 46094975837 (Security scans, green): 363 commits scanned, no leaks. Runs on push, pull request and weekly. Full mirror run: `docs/public-software/evidence/scans-20261127/st4-full-mirror.txt`. |
 | SEC-13 | The hub reaches Azure SQL with managed identities; no SQL password exists for the hub. | `savia/deploy/azure/main.bicep:7,93-99,283` | built | Readback of the API connection string in `docs/production-20261122/STORE-PC-20261124.md` (H2 section). |
 | SEC-14 | The Turnstile secret lives only in the Container App secret `turnstile-secret`, read as `secretref`; it is never printed. | Azure, set by CLI; recorded in `savia/docs/deploy/AZURE.md:183` | built | Not in `main.bicep`. `STOREFRONT-DEPLOY.md:39` and `RUNBOOK.md:185` say Key Vault; they disagree with AZURE.md and must be corrected. Proposal: move it to a Key Vault reference. |
 | SEC-15 | Key Vault uses RBAC only, soft delete 90 days and purge protection; only the API identity reads secrets. | `main.bicep:165-180,510-515` | built | The operator account has no data role (`STORE-PC-20261124.md:22`). |
@@ -65,7 +65,7 @@ Short file names resolve as follows.
 | ID | Rule | Where | Status | Evidence or note |
 | --- | --- | --- | --- | --- |
 | SEC-26 | Builds restore locked dependencies; base images are pinned by digest. | `savia/Dockerfile:8-9`; `savia-azure.yml:50`; `.github/workflows/ci.yml:108` (`npm ci`) | built | |
-| SEC-27 | A dependency vulnerability scan runs in CI (.NET, npm). | none | gap | `npm ci --no-audit`; no Dependabot; no `dotnet list package --vulnerable`. |
+| SEC-27 | A dependency vulnerability scan runs in CI (.NET, npm). | none | tested | `.github/workflows/security-scans.yml` job `dependencies`: `dotnet list --vulnerable --include-transitive` after a locked restore, and `npm audit --audit-level=high` in 3 lockfiles; CI run 46094975837 (Security scans, green): 7 .NET projects with no vulnerable packages, 0 npm findings. No Dependabot. |
 | SEC-28 | Patch cadence (proposal): critical CVE in a used component within 72 hours; .NET SDK and runtime digest bump monthly; npm and Wrangler monthly; store PC Windows Update automatic and SQL Express cumulative update checked monthly. | this document | gap | Proposal only. No owner or calendar exists yet. |
 
 ## 5. Rate limits and abuse

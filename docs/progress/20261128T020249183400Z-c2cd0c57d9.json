@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-28T02:02:49.183400+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/public-software/LAUNCH-CHECKLIST.md",
+      "change": "M",
+      "git_blob": "970073aeef63f8af73218e7f80d16e74959dbebe"
+    },
+    {
+      "path": "docs/public-software/SECURITY-RULES.md",
+      "change": "M",
+      "git_blob": "12beb899c21a5f2b12a3f1bd38247e9b7528c146"
+    },
+    {
+      "path": "docs/public-software/THREAT-MAP.md",
+      "change": "M",
+      "git_blob": "954e56275a8d14379535e90f47e31575c5dbbf03"
+    },
+    {
+      "path": "savia/docs/deploy/AZURE.md",
+      "change": "M",
+      "git_blob": "5c3c6a3c5f8f814e14792240bf4a0b7066155519"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

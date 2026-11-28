@@ -19,13 +19,13 @@ When a source document changes a control, update its row here in the same commit
 
 | Status | Meaning | Rows |
 | --- | --- | --- |
-| tested | Evidence in the repository exercises the control | 37 |
+| tested | Evidence in the repository exercises the control | 39 |
 | partial | Part of the control is tested; the rest is only built | 5 |
 | built | The code or config exists; no test proves it | 27 |
-| gap | Not built | 28 |
+| gap | Not built | 26 |
 | Total | | 97 |
 
-Result: launch is blocked. 60 of 97 control rows lack full evidence, and 6 of 7 self-tests are not run.
+Result: launch is blocked. 58 of 97 control rows lack full evidence, and 3 of 7 self-tests are not run (ST-2, ST-5, ST-7); ST-1 ran in demo mode only.
 
 ## Security controls (SECURITY-RULES)
 
@@ -42,7 +42,7 @@ Result: launch is blocked. 60 of 97 control rows lack full evidence, and 6 of 7 
 | SEC-09 | Staff screens write buyer text with `textContent`; `innerHTML`, `outerHTML` and `insertAdjacentHTML` are banned in `savia/web`. | tested | `savia/tests/test_rules.py`. |
 | SEC-10 | The storefront escapes catalog and order text before it inserts HTML. | built | No test injects markup into storefront templates. |
 | SEC-11 | No secret, key file, `.env`, database or cookie file enters a commit. | tested | `tests/test_progress.py` (`test_secret_in_index_blocks_even_if_worktree_cleaned`, `test_frozen_import_retains_secret_and_mode_guards`). The pattern list covers only a few token formats. |
-| SEC-12 | A full-history secret scan (for example gitleaks) runs in CI and before each release. | gap | No scanner in `.github/workflows/`. The last full review was manual (`docs/SECURITY.md`, 2026-10-24). |
+| SEC-12 | A full-history secret scan (for example gitleaks) runs in CI and before each release. | tested | `.github/workflows/security-scans.yml` job `secrets`: gitleaks (pinned by digest) on all refs with `.gitleaks.toml` and 15 reviewed fingerprints in `.gitleaksignore`; CI run 46094975837 (Security scans, green): 363 commits scanned, no leaks. Runs on push, pull request and weekly. Full mirror run: `docs/public-software/evidence/scans-20261127/st4-full-mirror.txt`. |
 | SEC-13 | The hub reaches Azure SQL with managed identities; no SQL password exists for the hub. | built | Readback of the API connection string in `docs/production-20261122/STORE-PC-20261124.md` (H2 section). |
 | SEC-14 | The Turnstile secret lives only in the Container App secret `turnstile-secret`, read as `secretref`; it is never printed. | built | Not in `main.bicep`. `STOREFRONT-DEPLOY.md:39` and `RUNBOOK.md:185` say Key Vault; they disagree with AZURE.md and must be corrected. Proposal: move it to a Key Vault reference. |
 | SEC-15 | Key Vault uses RBAC only, soft delete 90 days and purge protection; only the API identity reads secrets. | built | The operator account has no data role (`STORE-PC-20261124.md:22`). |
@@ -57,7 +57,7 @@ Result: launch is blocked. 60 of 97 control rows lack full evidence, and 6 of 7 
 | SEC-24 | Store PC data is encrypted at rest and backups leave the PC encrypted. | gap | SQL Server Express has no TDE; no BitLocker evidence; backups stay on the same disk (`STORE-PC-20261124.md:68`). Local SQL uses `TrustServerCertificate=True` on loopback only (`start-store.ps1:21`). |
 | SEC-25 | Bearer secrets are stored only as hashes: order access token, client address, request body, staff session token, node secret. | built | `WebOrderVerticalSliceTests.cs` (`Order_status_needs_its_token`) proves the token is required, not that only the hash is stored. Staff token hashing is tested under LOGIN-03. |
 | SEC-26 | Builds restore locked dependencies; base images are pinned by digest. | built |  |
-| SEC-27 | A dependency vulnerability scan runs in CI (.NET, npm). | gap | `npm ci --no-audit`; no Dependabot; no `dotnet list package --vulnerable`. |
+| SEC-27 | A dependency vulnerability scan runs in CI (.NET, npm). | tested | `.github/workflows/security-scans.yml` job `dependencies`: `dotnet list --vulnerable --include-transitive` after a locked restore, and `npm audit --audit-level=high` in 3 lockfiles; CI run 46094975837 (Security scans, green): 7 .NET projects with no vulnerable packages, 0 npm findings. No Dependabot. |
 | SEC-28 | Patch cadence (proposal): critical CVE in a used component within 72 hours; .NET SDK and runtime digest bump monthly; npm and Wrangler monthly; store PC Windows Update automatic and SQL Express cumulative update checked monthly. | gap | Proposal only. No owner or calendar exists yet. |
 | SEC-29 | Public routes allow 60 requests per client address per minute (fixed window, no queue); excess gets 429 `rate_limited`. | tested | `WebStorePublicTests.cs` (`Too_many_requests_from_one_client_is_429`); Azure probe: 70 GETs gave 60 × 200 and 10 × 429 (`run-20261124.json`). The counter is in memory per replica; with 2 replicas the real limit can reach 120. |
 | SEC-30 | Staff sign-in and password change allow 10 attempts per client address per minute on Azure. | tested | `savia/tests/Savia.Tests/HostingTests.cs` (`Login_limit_is_per_client_address_and_ignores_forged_earlier_hops`). The value 10 is not exercised on Azure, and the password route limit is not tested. Account lockout belongs to LOGIN-RULES. |
@@ -170,10 +170,10 @@ Each entry point is launch-ready only when its controls are `tested` and its owe
 | --- | --- | --- | --- |
 | ST-1 | OWASP ZAP baseline (passive) scan. | Preview storefront `martha-silva-preview.jason-suazof.workers.dev`, demo and live mode. | Run 2026-11-27, passive, demo mode only: 0 FAIL, 7 WARN, 61 PASS (`docs/public-software/evidence/scans-20261127/SUMMARY.md`). Live mode not run. |
 | ST-2 | OWASP ZAP API scan from `/openapi/v1.json`, signed out and signed in, with order-body fuzzing. | A disposable local hub with a throwaway database, never `ca-savia-api`. | Not run. Proposal. |
-| ST-3 | Dependency scan: `dotnet list package --vulnerable --include-transitive` and `npm audit`. | Repository. | Run 2026-11-27: PASS, 0 vulnerable packages in 7 .NET projects and 0 npm findings in 3 lockfiles (`docs/public-software/evidence/scans-20261127/SUMMARY.md`). Not in CI (SEC-27). |
-| ST-4 | Full-history secret scan (for example gitleaks). | Repository, all reachable commits. | Partial run 2026-11-27: gitleaks stopped after 964 of about 1,290 commits (partial clone, 34 blobs missing); 2,915 raw hits, 0 real-looking credentials (`docs/public-software/evidence/scans-20261127/SUMMARY.md`). |
+| ST-3 | Dependency scan: `dotnet list package --vulnerable --include-transitive` and `npm audit`. | Repository. | Run 2026-11-27: PASS, 0 vulnerable packages in 7 .NET projects and 0 npm findings in 3 lockfiles (`docs/public-software/evidence/scans-20261127/SUMMARY.md`). In CI since `f9aa23a2` (SEC-27); CI run 46094975837 (Security scans, green) PASS. |
+| ST-4 | Full-history secret scan (for example gitleaks). | Repository, all reachable commits. | Full run 2026-11-27 on a mirror of the published history: 362 commits, no leaks after review (`docs/public-software/evidence/scans-20261127/st4-full-mirror.txt`). In CI since `f9aa23a2` (SEC-12); CI run 46094975837 (Security scans, green): 363 commits, no leaks. Commits only in local agent refs are not published and not scanned. |
 | ST-5 | Role-by-route authorization test for every staff route. | `savia/tests/Savia.Tests`. | Not written. |
-| ST-6 | Container image scan (for example Trivy). | `savia-api` image. | Run 2026-11-27 on image `c7e30bc4`: 6 HIGH, 0 CRITICAL, all fixable by a newer runtime base image; the app layer has 0 (`docs/public-software/evidence/scans-20261127/SUMMARY.md`). After the runtime bump to aspnet 10.0.15 in `savia/Dockerfile`: 0 HIGH, 0 CRITICAL, 18 MEDIUM, 6 LOW (`st6-trivy-runtime15.txt`). Not in CI. |
+| ST-6 | Container image scan (for example Trivy). | `savia-api` image. | Run 2026-11-27 on image `c7e30bc4`: 6 HIGH, 0 CRITICAL, all fixable by a newer runtime base image (`docs/public-software/evidence/scans-20261127/SUMMARY.md`). After the runtime bump to aspnet 10.0.15: 0 HIGH, 0 CRITICAL, 18 MEDIUM, 6 LOW (`st6-trivy-runtime15.txt`). In CI since `f9aa23a2` (HIGH and CRITICAL with a fix fail the job); CI run 46094975837 (Security scans, green) PASS. Deployed as revision `ca-savia-api--gc4b45ae-1`. |
 | ST-7 | Paid external penetration test. | Storefront and hub. | Optional; Jason's money decision. |
 
 ## Not part of this checklist, still required for production
