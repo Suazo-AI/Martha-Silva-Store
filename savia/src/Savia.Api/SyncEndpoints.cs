@@ -1,3 +1,6 @@
+using System.Text;
+using System.Text.Json;
+using Microsoft.AspNetCore.Http.Features;
 using Savia.Application;
 using Savia.Domain;
 using Savia.Infrastructure;
@@ -23,7 +26,8 @@ public static class SyncEndpoints
         // Any signed-in staff member of a store sees why its sales are not reaching the hub.
         api.MapGet("/sync/status", (SyncStatus status) => status.View).Produces<SyncStatusView>().WithTags("sync");
         if (node.Kind != NodeKind.Cloud) return;
-        var sync = app.MapGroup("/sync/v1").AddEndpointFilter<SyncNodeFilter>().ExcludeFromDescription();
+        var sync = app.MapGroup("/sync/v1").AddEndpointFilter<SyncNodeFilter>().ExcludeFromDescription()
+            .RequireRateLimiting(SaviaHosting.StaffPolicy);   // SEC-33
         sync.MapGet("/state", async (SyncHubService hub, CancellationToken ct) => Json(await hub.StateAsync(ct)));
         sync.MapPost("/push/plan", async (HttpContext http, SyncHubService hub, CancellationToken ct) =>
             Json(await hub.PushPlanAsync(Peer(http), await BodyAsync(http, ct), ct)));
@@ -37,10 +41,39 @@ public static class SyncEndpoints
 
     private static IResult Json(string json) => Results.Text(json, "application/json");
 
+    /// <summary>
+    /// SEC-06: a sync body is at most 30,000,000 bytes (the Kestrel default, stated here so it cannot drift; a page stops
+    /// adding tables at 19,000,000 bytes, V060) and must be one JSON object, checked before SQL sees it.
+    /// A larger body is 422 sync.too_large (Kestrel answers 413 itself when the stream passes the limit);
+    /// a body that is not one JSON object is 422 sync.malformed.
+    /// </summary>
+    public const int MaxBodyBytes = 30_000_000;
+
     private static async Task<string> BodyAsync(HttpContext http, CancellationToken ct)
     {
-        using var reader = new StreamReader(http.Request.Body);
-        return await reader.ReadToEndAsync(ct);
+        if (http.Features.Get<IHttpMaxRequestBodySizeFeature>() is { IsReadOnly: false } limit) limit.MaxRequestBodySize = MaxBodyBytes;
+        if (http.Request.ContentLength > MaxBodyBytes) throw new SaviaException(Errors.SyncTooLarge);
+        using var buffer = new MemoryStream();
+        await http.Request.Body.CopyToAsync(buffer, ct);
+        if (buffer.Length > MaxBodyBytes) throw new SaviaException(Errors.SyncTooLarge);
+        var bytes = buffer.GetBuffer().AsSpan(0, (int)buffer.Length);
+        if (!IsJsonObject(bytes)) throw new SaviaException(Errors.SyncMalformed);
+        return Encoding.UTF8.GetString(bytes);
+    }
+
+    private static bool IsJsonObject(ReadOnlySpan<byte> utf8)
+    {
+        try
+        {
+            var reader = new Utf8JsonReader(utf8, new JsonReaderOptions { MaxDepth = 64 });
+            if (!reader.Read() || reader.TokenType != JsonTokenType.StartObject) return false;
+            reader.Skip();
+            return !reader.Read();   // nothing after the object
+        }
+        catch (JsonException)
+        {
+            return false;
+        }
     }
 }
 
@@ -93,8 +126,8 @@ public sealed class SyncWorker(IServiceProvider services, IConfiguration config,
             }
             catch (HttpRequestException ex)
             {
-                log.LogWarning("Sync round could not reach the hub: {Message}", ex.Message);
-                status.Record(DateTimeOffset.UtcNow, "sync.unreachable", ex.Message);
+                log.LogWarning("Sync round could not reach the hub: {Error}", SafeLog.Describe(ex));
+                status.Record(DateTimeOffset.UtcNow, "sync.unreachable", SafeLog.Describe(ex));
             }
             catch (TaskCanceledException) when (!stoppingToken.IsCancellationRequested)
             {
@@ -104,7 +137,7 @@ public sealed class SyncWorker(IServiceProvider services, IConfiguration config,
             catch (Exception ex) when (!stoppingToken.IsCancellationRequested)
             {
                 // A failed round must never stop the branch host; the next round starts from a fresh plan.
-                log.LogError(ex, "Sync round failed.");
+                log.Failure(ex, "Sync round failed");
                 status.Record(DateTimeOffset.UtcNow, "sync.failed", null);
             }
             await Task.Delay(interval, stoppingToken).ContinueWith(_ => { }, CancellationToken.None);

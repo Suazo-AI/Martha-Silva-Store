@@ -37,7 +37,7 @@ public sealed class TurnstileBotCheck(IHttpClientFactory clients, IConfiguration
         }
         catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException && !ct.IsCancellationRequested)
         {
-            log.LogWarning("Turnstile siteverify did not answer: {Error}", ex.Message);
+            log.LogWarning("Turnstile siteverify did not answer: {Error}", SafeLog.Describe(ex));
             return false;
         }
     }

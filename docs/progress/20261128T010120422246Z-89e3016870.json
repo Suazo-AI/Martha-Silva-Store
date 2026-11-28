@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-28T01:01:20.422246+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/public-software/LAUNCH-CHECKLIST.md",
+      "change": "M",
+      "git_blob": "55cd95deabc47d60a79f2fcf2c50e88ba38cddae"
+    },
+    {
+      "path": "docs/public-software/SECURITY-RULES.md",
+      "change": "M",
+      "git_blob": "582a9d6af16865f6834591f14c4e70ac25039546"
+    },
+    {
+      "path": "docs/public-software/THREAT-MAP.md",
+      "change": "M",
+      "git_blob": "d557b1a42c7222eff5ff994addd1dd56a30ed633"
+    },
+    {
+      "path": "savia/deploy/azure/main.bicep",
+      "change": "M",
+      "git_blob": "4bf79f434db8fafc17eb9fd03f687fba9d50c287"
+    },
+    {
+      "path": "savia/src/Savia.Api/BotCheck.cs",
+      "change": "M",
+      "git_blob": "06a5ffe07662296aa4afb9cdef1906a5801e7a27"
+    },
+    {
+      "path": "savia/src/Savia.Api/Endpoints.cs",
+      "change": "M",
+      "git_blob": "340a9f921b5e5372ae8142fb1b7df2cca5a712c7"
+    },
+    {
+      "path": "savia/src/Savia.Api/Hosting.cs",
+      "change": "M",
+      "git_blob": "9920f1000a14e98df0dc153954435762f31ab5c2"
+    },
+    {
+      "path": "savia/src/Savia.Api/Program.cs",
+      "change": "M",
+      "git_blob": "e8eb22214bff7cf398198c210cab5f0e548a97bc"
+    },
+    {
+      "path": "savia/src/Savia.Api/PublicEndpoints.cs",
+      "change": "M",
+      "git_blob": "a6a5b580e27cb4c6c561574f2a8b1afb6256a377"
+    },
+    {
+      "path": "savia/src/Savia.Api/SafeLog.cs",
+      "change": "A",
+      "git_blob": "93c868caed3355fab1e59bff8666304a9e1dc603"
+    },
+    {
+      "path": "savia/src/Savia.Api/SyncEndpoints.cs",
+      "change": "M",
+      "git_blob": "b1cd1791d99215aa1e6df5d63b4d1c90bbb03374"
+    },
+    {
+      "path": "savia/src/Savia.Api/WebStoreHosting.cs",
+      "change": "M",
+      "git_blob": "6975aaf433991fdda6e79a045ed1db3aeb67fba9"
+    },
+    {
+      "path": "savia/src/Savia.Domain/Errors.cs",
+      "change": "M",
+      "git_blob": "afae9d205f44d348d85d66ee77282dace416fcfc"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/HostingTests.cs",
+      "change": "M",
+      "git_blob": "1adb5686323d398e663103ed20032135d9e82993"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/SafeLogTests.cs",
+      "change": "A",
+      "git_blob": "50d25cfa23489d1e1a6c75b22f49448a2b124381"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/SyncTransportTests.cs",
+      "change": "M",
+      "git_blob": "4d3b081c0a96336193edebe0eb17bfd34bd30396"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

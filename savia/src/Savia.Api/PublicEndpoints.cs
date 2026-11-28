@@ -192,7 +192,7 @@ public sealed class PublicFilter(ILogger<PublicFilter> log) : IEndpointFilter
         catch (SaviaException ex)
         {
             var (status, code) = Translate(ex.Error);
-            if (status == StatusCodes.Status500InternalServerError) log.LogError(ex, "Public route failed on {Path}", http.Request.Path);
+            if (status == StatusCodes.Status500InternalServerError) log.Failure(ex, $"Public route failed on {http.Request.Path}");
             return PublicEndpoints.Problem(http, status, code, status == StatusCodes.Status500InternalServerError ? "Error interno." : ex.Error.Message);
         }
     }

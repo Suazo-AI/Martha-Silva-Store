@@ -48,6 +48,22 @@ public sealed class SyncTransportTests
     }
 
     [Fact]
+    public async Task Hub_refuses_a_sync_body_that_is_not_one_json_object_or_is_too_large_before_sql()
+    {
+        await using var f = await SyncFixture.CreateAsync();
+        var client = f.Cloud.CreateClient();
+        client.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue(NodeCredential.Scheme, NodeCredential.Header(Ids.NodeA, SyncFixture.SecretA));
+        foreach (var body in new[] { "", "[]", "\"text\"", "{\"a\":1", "{} {}", "{\"a\":1}x" })
+            await HttpAssert.ProblemAsync(await client.PostAsync(SyncFixture.PushPath, new StringContent(body, System.Text.Encoding.UTF8, "application/json")),
+                HttpStatusCode.UnprocessableEntity, "sync.malformed");
+
+        var tooLarge = new ByteArrayContent(new byte[Savia.Api.SyncEndpoints.MaxBodyBytes + 1]);
+        tooLarge.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+        await HttpAssert.ProblemAsync(await client.PostAsync(SyncFixture.PushPath, tooLarge), HttpStatusCode.UnprocessableEntity, "sync.too_large");
+    }
+
+    [Fact]
     public async Task Duplicate_push_changes_nothing()
     {
         await using var f = await SyncFixture.CreateAsync();

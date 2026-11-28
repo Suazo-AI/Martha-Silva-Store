@@ -15,11 +15,14 @@ builder.AddSaviaTelemetry();          // Application Insights, off unless APPLIC
 var app = builder.Build();
 _ = app.Services.GetRequiredService<SqlGateway>();   // fail at start-up, not on the first request, when misconfigured
 if (provision) return await Provisioning.RunAsync(app.Services, app.Configuration);
+_ = app.Services.GetRequiredService<IBotCheck>();    // refuses to start when the bot check is off in Production (SEC-38)
 
 app.UseSaviaHosting();
 app.UseSaviaErrors();
 app.UseSaviaWeb(builder.Configuration["Savia:Web:Root"]);
-app.MapOpenApi();                     // GET /openapi/v1.json: the contract every client is generated from
+// GET /openapi/v1.json: the contract every client is generated from. Not served in Production, where it would list
+// every staff route to anyone (SEC-48).
+if (!app.Environment.IsProduction()) app.MapOpenApi().RequireRateLimiting(SaviaHosting.StaffPolicy);
 app.MapSaviaHealth();
 app.MapSaviaEndpoints();
 app.Run();

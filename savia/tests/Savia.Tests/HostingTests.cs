@@ -15,11 +15,11 @@ namespace Savia.Tests;
 /// </summary>
 public sealed class HostingTests
 {
-    private sealed class Host(Dictionary<string, string?> extra) : WebApplicationFactory<Program>
+    private sealed class Host(Dictionary<string, string?> extra, string environment = "Testing") : WebApplicationFactory<Program>
     {
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
-            builder.UseEnvironment("Testing");
+            builder.UseEnvironment(environment);
             builder.ConfigureAppConfiguration((_, config) => config.AddInMemoryCollection(new Dictionary<string, string?>
             {
                 ["Savia:Node:Kind"] = nameof(NodeKind.Cloud),
@@ -86,5 +86,50 @@ public sealed class HostingTests
         Assert.NotEqual(HttpStatusCode.TooManyRequests, (await Login(client, "198.51.100.1, 203.0.113.5")).StatusCode);
         Assert.Equal(HttpStatusCode.TooManyRequests, (await Login(client, "198.51.100.2, 203.0.113.5")).StatusCode);
         Assert.NotEqual(HttpStatusCode.TooManyRequests, (await Login(client, "203.0.113.6")).StatusCode);
+    }
+
+    [Fact]
+    public async Task The_openapi_document_is_served_outside_production_only()
+    {
+        using var testing = new Host([]);
+        Assert.Equal(HttpStatusCode.OK, (await testing.CreateClient().GetAsync("/openapi/v1.json")).StatusCode);
+
+        using var production = new Host([], "Production");
+        var client = production.CreateClient();
+        Assert.Equal(HttpStatusCode.OK, (await client.GetAsync("/health")).StatusCode);
+        Assert.NotEqual(HttpStatusCode.OK, (await client.GetAsync("/openapi/v1.json")).StatusCode);
+    }
+
+    [Fact]
+    public void A_production_host_refuses_to_start_with_the_bot_check_off()
+    {
+        using var production = new Host(new() { ["Savia:Public:BotCheck"] = "disabled" }, "Production");
+        var refused = Assert.ThrowsAny<Exception>(() => production.CreateClient());
+        Assert.Contains("Savia:Public:BotCheck=disabled is not allowed in Production", refused.ToString());
+
+        using var testing = new Host(new() { ["Savia:Public:BotCheck"] = "disabled" });
+        testing.CreateClient();
+    }
+
+    [Fact]
+    public async Task Staff_sync_and_readiness_routes_are_limited_per_client_address_only_when_configured()
+    {
+        using var open = new Host([]);
+        var free = open.CreateClient();
+        for (var i = 0; i < 5; i++)
+        {
+            Assert.NotEqual(HttpStatusCode.TooManyRequests, (await free.GetAsync("/api/v1/me")).StatusCode);
+            Assert.NotEqual(HttpStatusCode.TooManyRequests, (await free.GetAsync("/health/ready")).StatusCode);
+        }
+
+        using var limited = new Host(new() { ["Savia:Hosting:PerMinute"] = "3" });
+        var client = limited.CreateClient();
+        Assert.Equal(HttpStatusCode.Unauthorized, (await client.GetAsync("/api/v1/me")).StatusCode);
+        Assert.Equal(HttpStatusCode.ServiceUnavailable, (await client.GetAsync("/health/ready")).StatusCode);
+        Assert.NotEqual(HttpStatusCode.TooManyRequests, (await client.GetAsync("/sync/v1/state")).StatusCode);
+        foreach (var path in new[] { "/api/v1/me", "/health/ready", "/sync/v1/state" })
+            Assert.Equal(HttpStatusCode.TooManyRequests, (await client.GetAsync(path)).StatusCode);
+        // Liveness stays outside the limit, so the platform probe never restarts a busy host.
+        Assert.Equal(HttpStatusCode.OK, (await client.GetAsync("/health")).StatusCode);
     }
 }

@@ -24,9 +24,15 @@ public static class WebStoreHosting
     public static void AddSaviaWebStore(this IServiceCollection services)
     {
         services.AddHttpClient(TurnstileBotCheck.ClientName, c => c.Timeout = TimeSpan.FromSeconds(10));
-        services.AddSingleton<IBotCheck>(sp => sp.GetRequiredService<IConfiguration>()["Savia:Public:BotCheck"] == "disabled"
-            ? new DisabledBotCheck()
-            : ActivatorUtilities.CreateInstance<TurnstileBotCheck>(sp));
+        services.AddSingleton<IBotCheck>(sp =>
+        {
+            if (sp.GetRequiredService<IConfiguration>()["Savia:Public:BotCheck"] != "disabled")
+                return ActivatorUtilities.CreateInstance<TurnstileBotCheck>(sp);
+            // SEC-38: the switch is for local runs and tests; a Production host refuses to start with it.
+            if (sp.GetRequiredService<IHostEnvironment>().IsProduction())
+                throw new InvalidOperationException("Savia:Public:BotCheck=disabled is not allowed in Production.");
+            return new DisabledBotCheck();
+        });
         services.AddSingleton<IPaymentProvider, ManualPaymentProvider>();
         services.AddSingleton<PaymentProviders>();
         services.AddSingleton<WebStoreSweep>();
@@ -87,7 +93,7 @@ public sealed class WebStoreSweep(WebStoreService web, PaymentProviders provider
         catch (Exception ex) when (!ct.IsCancellationRequested)
         {
             // A bad consignment must not hold back expiry: reserved stock would stay locked behind it.
-            log.LogWarning("Web consignments not applied this pass: {Error}", ex.Message);
+            log.LogWarning("Web consignments not applied this pass: {Error}", SafeLog.Describe(ex));
         }
         int paid = 0, expired = 0, skipped = 0, review = 0;
         foreach (var due in await web.DueOrdersAsync(ct))
@@ -106,7 +112,7 @@ public sealed class WebStoreSweep(WebStoreService web, PaymentProviders provider
             {
                 // One order that cannot be settled (a provider or database error, say) stays reserved for the next pass;
                 // the orders behind it must still expire and free their stock.
-                log.LogWarning("Due web order {Order} not settled: {Error}", due.OrderId, ex.Message);
+                log.LogWarning("Due web order {Order} not settled: {Error}", due.OrderId, SafeLog.Describe(ex));
                 skipped++;
             }
         }
@@ -158,7 +164,7 @@ public sealed class WebStoreWorker(WebStoreSweep sweep, IConfiguration config, I
             }
             catch (Exception ex) when (!stoppingToken.IsCancellationRequested)
             {
-                log.LogWarning("Web-order sweep failed: {Error}", ex.Message);
+                log.LogWarning("Web-order sweep failed: {Error}", SafeLog.Describe(ex));
             }
         }
     }

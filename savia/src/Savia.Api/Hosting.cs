@@ -14,6 +14,7 @@ namespace Savia.Api;
 public static class SaviaHosting
 {
     public const string LoginPolicy = "login";
+    public const string StaffPolicy = "staff";
 
     /// <summary>Set by Azure (infra/main.bicep); absent on branch hosts and in tests.</summary>
     public const string TelemetrySetting = "APPLICATIONINSIGHTS_CONNECTION_STRING";
@@ -42,18 +43,24 @@ public static class SaviaHosting
 
         // Savia:Auth:LoginPerMinute: sign-in attempts per client address per minute; 0 (default) means no limit.
         // The per-account lockout still applies either way.
+        // Savia:Hosting:PerMinute (SEC-33): requests per client address per minute on staff routes, sync routes,
+        // /health/ready and /openapi/v1.json; 0 (default) means no limit.
         services.AddRateLimiter(_ => { });
         services.AddOptions<RateLimiterOptions>().Configure<IConfiguration>((o, config) =>
         {
-            var perMinute = config.GetValue<int>("Savia:Auth:LoginPerMinute");
             o.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
-            o.AddPolicy(LoginPolicy, http => perMinute <= 0
-                ? RateLimitPartition.GetNoLimiter("off")
-                : RateLimitPartition.GetFixedWindowLimiter(
-                    http.Connection.RemoteIpAddress?.ToString() ?? "unknown",
-                    _ => new FixedWindowRateLimiterOptions { PermitLimit = perMinute, Window = TimeSpan.FromMinutes(1), QueueLimit = 0 }));
+            AddPerAddressPolicy(o, LoginPolicy, config.GetValue<int>("Savia:Auth:LoginPerMinute"));
+            AddPerAddressPolicy(o, StaffPolicy, config.GetValue<int>("Savia:Hosting:PerMinute"));
         });
     }
+
+    /// <summary>A fixed one-minute window per client address; <paramref name="perMinute"/> 0 or less means no limit.</summary>
+    public static void AddPerAddressPolicy(RateLimiterOptions o, string name, int perMinute) =>
+        o.AddPolicy(name, http => perMinute <= 0
+            ? RateLimitPartition.GetNoLimiter("off")
+            : RateLimitPartition.GetFixedWindowLimiter(
+                http.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+                _ => new FixedWindowRateLimiterOptions { PermitLimit = perMinute, Window = TimeSpan.FromMinutes(1), QueueLimit = 0 }));
 
     /// <summary>
     /// Sends traces, metrics and logs to Application Insights only when <see cref="TelemetrySetting"/> is set.
@@ -96,6 +103,6 @@ public static class SaviaHosting
         app.MapGet("/health/ready", async (SqlGateway sql, CancellationToken ct) => await sql.CanConnectAsync(ct)
             ? Results.Ok(new { status = "ready" })
             : Results.Json(new { status = "database unavailable" }, statusCode: StatusCodes.Status503ServiceUnavailable))
-            .ExcludeFromDescription();
+            .ExcludeFromDescription().RequireRateLimiting(StaffPolicy);   // each call opens a SQL connection
     }
 }

@@ -19,13 +19,13 @@ When a source document changes a control, update its row here in the same commit
 
 | Status | Meaning | Rows |
 | --- | --- | --- |
-| tested | Evidence in the repository exercises the control | 33 |
-| partial | Part of the control is tested; the rest is only built | 4 |
-| built | The code or config exists; no test proves it | 28 |
-| gap | Not built | 32 |
+| tested | Evidence in the repository exercises the control | 37 |
+| partial | Part of the control is tested; the rest is only built | 5 |
+| built | The code or config exists; no test proves it | 27 |
+| gap | Not built | 28 |
 | Total | | 97 |
 
-Result: launch is blocked. 64 of 97 control rows lack full evidence, and 6 of 7 self-tests are not run.
+Result: launch is blocked. 60 of 97 control rows lack full evidence, and 6 of 7 self-tests are not run.
 
 ## Security controls (SECURITY-RULES)
 
@@ -36,7 +36,7 @@ Result: launch is blocked. 64 of 97 control rows lack full evidence, and 6 of 7 
 | SEC-03 | A public request body is capped at 16 KB while it is read, not only from `Content-Length`. | tested | `WebStorePublicTests.cs` (`Body_over_16_KB_is_413`); Azure probe `run-20261124.json`. |
 | SEC-04 | `Idempotency-Key` must be a UUID; a reused key with a different body is refused (409 `idempotency_conflict`). | tested | `savia/tests/Savia.Tests/WebOrderVerticalSliceTests.cs:37` (409 `idempotency_conflict`); `savia/db/tests/webstore/090_web_order_replay_and_unpaid_limit.sql`. A non-UUID key is not tested. |
 | SEC-05 | Every staff route validates its body before save. | gap | Validation exists in services (example: `WebOrderVerticalSlicePaymentReviewTests.cs:38-39`), but no inventory proves every staff input is checked. Audit owed. |
-| SEC-06 | The sync push body has a size cap and a schema check at the endpoint. | gap | The body is read whole with no cap beyond the framework default. The hub refuses rows owned by another node (`SyncTransportTests.cs`, `Hub_refuses_rows_owned_by_another_node`). |
+| SEC-06 | The sync push body has a size cap and a schema check at the endpoint. | tested | `SyncTransportTests.cs` (`Hub_refuses_a_sync_body_that_is_not_one_json_object_or_is_too_large_before_sql`): six malformed bodies give 422 `sync.malformed`; 30,000,001 bytes give 422 `sync.too_large`. The schema check is one JSON object; field-level checks stay in SQL. Rows owned by another node are refused (`Hub_refuses_rows_owned_by_another_node`). |
 | SEC-07 | A tag photo upload is multipart only, staff only, at most 6 MB, and read locally (no external OCR). | built | No test sends a photo over 6 MB. |
 | SEC-08 | SQL runs as stored procedures or fixed SQL text, always with typed parameters; user text never becomes SQL text. | built | A manual search at `40132952` found no SQL built by string interpolation; no automated check exists. |
 | SEC-09 | Staff screens write buyer text with `textContent`; `innerHTML`, `outerHTML` and `insertAdjacentHTML` are banned in `savia/web`. | tested | `savia/tests/test_rules.py`. |
@@ -63,12 +63,12 @@ Result: launch is blocked. 64 of 97 control rows lack full evidence, and 6 of 7 
 | SEC-30 | Staff sign-in and password change allow 10 attempts per client address per minute on Azure. | tested | `savia/tests/Savia.Tests/HostingTests.cs` (`Login_limit_is_per_client_address_and_ignores_forged_earlier_hops`). The value 10 is not exercised on Azure, and the password route limit is not tested. Account lockout belongs to LOGIN-RULES. |
 | SEC-31 | The client address is the proxy's last hop only; a forged `X-Forwarded-For` is ignored. | tested | Same HostingTests test as SEC-30. |
 | SEC-32 | At most 2 unpaid orders per email and per client address hash. | tested | `savia/db/tests/webstore/090_web_order_replay_and_unpaid_limit.sql`. |
-| SEC-33 | Staff routes, sync routes, `/health/ready` and `/openapi/v1.json` have a rate limit. | gap | Only sign-in and public routes are limited. `/health/ready` opens a SQL connection on each call. |
+| SEC-33 | Staff routes, sync routes, `/health/ready` and `/openapi/v1.json` have a rate limit. | tested | `HostingTests.cs` (`Staff_sync_and_readiness_routes_are_limited_per_client_address_only_when_configured`): with `Savia:Hosting:PerMinute=3`, the fourth call to `/api/v1/me`, `/health/ready` and `/sync/v1/state` gets 429; `/health` stays 200. Azure sets 300 (`deploy/azure/main.bicep`). The counter is in memory per replica. `/openapi/v1.json` is not served in Production (SEC-48). |
 | SEC-34 | CORS applies to public routes only: listed origins, GET and POST, three headers, never credentials. | tested | `WebStorePublicTests.cs` (`Cors_allows_only_listed_origins_without_credentials`); Azure probe `run-20261124.json`. |
 | SEC-35 | Turnstile is checked server-side before any stock is reserved; a missing secret or no siteverify answer refuses the order. | tested | `WebOrderVerticalSliceTests.cs` (`Failed_bot_check_reserves_nothing`); Azure probe 403 with no secret (`run-20261124.json`). |
 | SEC-36 | With the secret set, a forged token is refused through siteverify. | built | Operator note in `AZURE.md:183` only; no raw probe file in the repository. |
 | SEC-37 | A real Turnstile token passes end to end from the live storefront. | gap | Not run. |
-| SEC-38 | `Savia:Public:BotCheck=disabled` can never take effect in Production. | gap | No start-up guard; only operator discipline. |
+| SEC-38 | `Savia:Public:BotCheck=disabled` can never take effect in Production. | tested | `HostingTests.cs` (`A_production_host_refuses_to_start_with_the_bot_check_off`); guard in `WebStoreHosting.cs` and `Program.cs`. |
 | SEC-39 | Only a server-side provider answer records a payment; a browser return alone never marks an order paid. | tested | `WebStorePublicTests.cs` (`A_browser_claim_alone_is_never_a_verified_payment`); `WebOrderVerticalSliceTests.cs` (`Card_return_is_not_payment_until_the_gateway_confirms_and_webhooks_must_be_signed`). |
 | SEC-40 | A webhook signature is checked before the body is read; a repeat delivery records nothing new. | tested | Fake gateway only: `WebStorePublicTests.cs` (`Fake_gateway_rejects_an_unsigned_webhook_before_reading_it`). |
 | SEC-41 | The real card provider's webhook signature and return confirmation are implemented and tested. | gap | No card provider exists (merchant account missing). |
@@ -76,9 +76,9 @@ Result: launch is blocked. 64 of 97 control rows lack full evidence, and 6 of 7 
 | SEC-43 | The storefront sends CSP (script by hash, `frame-ancestors 'none'`), `nosniff`, Referrer-Policy, Permissions-Policy, COOP and `X-Robots-Tag: noindex` until launch. | tested | `tests/static_headers.py`. `style-src` still allows `'unsafe-inline'`. Live readback: `STOREFRONT-DEPLOY.md:4-6`. |
 | SEC-44 | The hub sends CSP (`default-src 'self'`, `frame-ancestors 'none'`), `nosniff` and `Referrer-Policy: no-referrer` on every response. | tested | `HostingTests.cs` (`Every_response_carries_the_security_headers`). |
 | SEC-45 | Public routes answer only public error codes; an internal error says "Error interno." plus a trace id. | tested | `WebStorePublicTests.cs` (`AssertPublicAsync` checks the public code). |
-| SEC-46 | Application logs name order ids, paths and error codes, never contact details; the client address is kept only as a hash. | built | No test asserts it. Several lines log `ex.Message`, whose content is not reviewed. |
+| SEC-46 | Application logs name order ids, paths and error codes, never contact details; the client address is kept only as a hash. | partial | Every logged exception goes through `SafeLog.Describe`: code, SQL number, procedure, line and stack, never the message. `SafeLogTests.cs` (`A_sql_error_that_quotes_an_email_is_logged_without_it`) uses a real SQL duplicate key that quotes an email. No test scans every log template, and the address hash is not tested here. |
 | SEC-47 | Telemetry (Application Insights) holds no personal data: client IP masking and URL contents are confirmed. | gap | Readback owed. `TelemetryTests.cs` only proves the host starts. |
-| SEC-48 | The OpenAPI document is not public in Production. | gap | `/openapi/v1.json` answers 200 on Azure (`savia/docs/deploy/AZURE.md:168`) and lists staff routes. Proposal: map it only outside Production. |
+| SEC-48 | The OpenAPI document is not public in Production. | tested | `HostingTests.cs` (`The_openapi_document_is_served_outside_production_only`): 404 in Production, 200 in Testing. |
 
 ## Login controls (LOGIN-RULES)
 
@@ -156,9 +156,9 @@ Each entry point is launch-ready only when its controls are `tested` and its owe
 | TM-09 | Staff sign-in `POST /api/v1/auth/login` and `POST /api/v1/auth/password` | High: staff access exposes buyer data. | Tested: `HostingTests.cs` (limit per address), `PasswordChangeTests.cs`. Lockout counter: `SignInLockoutTests.cs` (LOGIN-07, LOGIN-08). | ST-2 against the sign-in route; check that error replies do not reveal which accounts exist. |
 | TM-10 | Staff API `/api/v1/*` (web orders, catalog, inventory, `/me`, `/sync/status`) and staff screens served by the hub at `/` (`savia/web`). | High: largest store of personal data. | Partly tested: a cashier is refused a refund action (403) in `WebOrderVerticalSlicePaymentReviewTests.cs:35-37`; 401 without sign-in on Azure (`run-20261124.json`); `innerHTML` ban (`savia/tests/test_rules.py`). No full role-by-route test. | ST-5 (role matrix); ST-2 signed-in scan on a local hub. |
 | TM-11 | Staff photo upload `POST /api/v1/inventory/tag-extract` | Medium: staff-only, but it parses files. | Size cap not tested. | Oversize and malformed-image tests on a local hub. |
-| TM-12 | Store-node sync API `/sync/v1/state`, `/push/plan`, `/push`, `/pull` | High: a stolen secret writes business data. | Tested: `SyncTransportTests.cs`; 401 without credential on Azure (`run-20261124.json`). Body cap: gap. | Oversize-body test on a local hub; a credential rotation drill (`--provision-node rotate`). |
+| TM-12 | Store-node sync API `/sync/v1/state`, `/push/plan`, `/push`, `/pull` | High: a stolen secret writes business data. | Tested: `SyncTransportTests.cs`; 401 without credential on Azure (`run-20261124.json`). Body cap, JSON check and rate limit: tested in-process (SEC-06, SEC-33). | A credential rotation drill (`--provision-node rotate`). |
 | TM-13 | Store PC: host on `127.0.0.1:5080`, SQL Server Express on `127.0.0.1:14350`, DPAPI secret files. | High: the PC holds other credentials (`docs/production-20261122/STORE-PC-20261124.md:63`). | Gap: no at-rest encryption or off-PC backup evidence. | BitLocker readback; separate Windows account (proposal); encrypted off-PC backup (proposal). |
-| TM-14 | Hub `/health`, `/health/ready`, `/openapi/v1.json` | Medium: helps an attacker plan; no data. | Gap. | ST-1/ST-2 will list them; decide SEC-48. |
+| TM-14 | Hub `/health`, `/health/ready`, `/openapi/v1.json` | Medium: helps an attacker plan; no data. | Tested in-process: readiness is rate limited (SEC-33); OpenAPI is not served in Production (SEC-48). | Read back 404 for `/openapi/v1.json` on Azure after the next hub deploy. |
 | TM-15 | Migration job `caj-savia-migrate` and provisioning commands (`--provision-node`, `--provision-staff`). | High: full database control. | Migration applied twice on an empty database in CI (`.github/workflows/savia-azure.yml:79`); 0 secret lines after provisioning (`STORE-PC-20261124.md:25`). Key Vault reference path not run. | Run RUNBOOK 3.1 once and read back the logs. |
 | TM-16 | CI/CD and source: GitHub repository, Actions (OIDC deploy, AI bug workflows with write rights on issue labels), local hooks that push, manual Wrangler deploys from Jason's PC. | High: one push can change the live site or hub. | Hook secret check tested (`tests/test_progress.py`). Full-history scan, dependency scan and branch protection: gap. | ST-3, ST-4, ST-6; readback of branch protection and repository visibility. |
 | TM-17 | Cloudflare dashboard and API: Worker `martha-silva-preview`, Turnstile widget, DNS later. | High: full control of what buyers see. | Gap: not provable from the repository. | Jason reads back multi-factor sign-in and token scopes. |

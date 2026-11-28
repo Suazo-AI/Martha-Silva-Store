@@ -77,7 +77,7 @@ public static class Http
                 _ => StatusCodes.Status500InternalServerError,
             };
             if (ex.Error.Kind == ErrorKind.Internal)
-                app.Logger.LogError(ex, "Unhandled database error on {Path}", http.Request.Path);
+                app.Logger.Failure(ex, $"Unhandled database error on {http.Request.Path}");
             await http.Response.WriteAsJsonAsync(new ProblemResponse(ex.Error.Code, ex.Error.Message, http.TraceIdentifier));
         }
     });
@@ -93,7 +93,7 @@ public static class SaviaEndpoints
     {
         var node = app.Services.GetRequiredService<NodeContext>();
         var open = app.MapGroup("/api/v1");
-        var api = app.MapGroup("/api/v1").AddEndpointFilter<ActorFilter>();
+        var api = app.MapGroup("/api/v1").AddEndpointFilter<ActorFilter>().RequireRateLimiting(SaviaHosting.StaffPolicy);
 
         AuthEndpoints.Map(open, api);
         SiteEndpoints.Map(api);
@@ -109,7 +109,7 @@ public static class SaviaEndpoints
         ReceivingEndpoints.Map(api);
         CashEndpoints.Map(api);
         ExchangeRateEndpoints.Map(api);
-        ExchangeRateEndpoints.Map(app.MapGroup("/api").AddEndpointFilter<ActorFilter>());
+        ExchangeRateEndpoints.Map(app.MapGroup("/api").AddEndpointFilter<ActorFilter>().RequireRateLimiting(SaviaHosting.StaffPolicy));
         SalesEndpoints.Map(api);
         ReturnsEndpoints.Map(api);
         CustomersEndpoints.Map(api);

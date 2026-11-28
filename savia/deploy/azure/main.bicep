@@ -358,6 +358,11 @@ resource api 'Microsoft.App/containerApps@2024-03-01' = if (deployApps) {
               value: '10'
             }
             {
+              // SEC-33: staff, sync and readiness requests per client address per minute.
+              name: 'Savia__Hosting__PerMinute'
+              value: '300'
+            }
+            {
               name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
               value: appInsights.properties.ConnectionString
             }

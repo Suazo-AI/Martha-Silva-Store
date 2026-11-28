@@ -16,6 +16,7 @@ public static class Errors
     public static readonly SaviaError Unauthorized = new("auth.required", ErrorKind.Unauthorized, "Inicie sesión.");
     public static readonly SaviaError NodeUnauthorized = new("sync.unauthorized", ErrorKind.Unauthorized, "Nodo no autenticado.");
     public static readonly SaviaError SyncMalformed = new("sync.malformed", ErrorKind.Validation, "Mensaje de sincronización inválido.");
+    public static readonly SaviaError SyncTooLarge = new("sync.too_large", ErrorKind.Validation, "Mensaje de sincronización demasiado grande.");
     public static readonly SaviaError SyncStalled = new("sync.page_stalled", ErrorKind.Conflict,
         "Sincronización detenida: el destino no aplicó la página.");
     public static readonly SaviaError BadCredentials = new("auth.bad_credentials", ErrorKind.Unauthorized, "Usuario o contraseña incorrectos.");
