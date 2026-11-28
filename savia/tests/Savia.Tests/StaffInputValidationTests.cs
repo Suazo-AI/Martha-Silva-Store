@@ -287,6 +287,38 @@ public sealed class StaffInputValidationTests : IAsyncLifetime
 
     /// <summary>Gap 12: a body the binder cannot read is 400 with the app's problem code, before any service runs; never 500.</summary>
     [Fact]
+    public async Task Remaining_client_ids_refuse_the_empty_id()
+    {
+        // Gap 6 on the ids the other tests do not reach. Each body is otherwise valid up to the id check, so only the empty id
+        // can answer input.id; without Guard.Id the request reaches the store and answers something else.
+        var till = await OpenTillAsync();
+        await using var hub = SaviaNode.Cloud(_db);
+        var hubOwner = await hub.SignInAsync(Ids.Manager, "t_manager");
+        // The same owner signs in on the branch next, which ends this hub session, so the hub case runs first.
+        await Expect("supplierId", () => hubOwner.PostAsJsonAsync("/api/v1/suppliers", new CreateSupplierRequest(Guid.Empty, "Proveedor SEC05")), Invalid, "input.id");
+        var owner = await _branch.SignInAsync(Ids.Manager, "t_manager");
+        var sale = $"/api/v1/sales/{Guid.NewGuid()}/returns";
+        var cases = new (string Label, Func<Task<HttpResponseMessage>> Call)[]
+        {
+            ("cashCountId", () => _cashier.PostAsJsonAsync($"/api/v1/cash/tills/{till}/counts", new RecordCashCountRequest(Guid.Empty, [new(100000, 1)]))),
+            ("closureId", () => _supervisor.PostAsJsonAsync($"/api/v1/cash/tills/{till}/close", new CloseTillRequest(Guid.Empty, Guid.NewGuid()))),
+            ("item values changeId", () => owner.PostAsJsonAsync($"/api/v1/catalog/items/{Ids.Item}/values", new ItemValuesRequest(Guid.Empty, 125000, 62000, "Precio SEC05"))),
+            ("return window changeId", () => owner.PostAsJsonAsync("/api/v1/returns/policy", new ReturnWindowRequest(Guid.Empty, 30, "Ventana SEC05"))),
+            ("transferId", () => _cashier.PostAsJsonAsync("/api/v1/credit-transfers",
+                new RequestCreditTransferRequest(Guid.Empty, Guid.NewGuid(), Ids.BranchA, Ids.BranchB, 1000, "Traslado SEC05"))),
+            ("checkId", () => _supervisor.PostAsJsonAsync($"/api/v1/receiving/sessions/{Guid.NewGuid()}/quality",
+                new QualityRequest(Guid.Empty, Ids.Item, 1, 0, 0, 0, 0, "Revision SEC05"))),
+            ("creditId", () => _supervisor.PostAsJsonAsync($"{sale}/credit",
+                new PostCreditReturnRequest(Guid.NewGuid(), Guid.Empty, till, Guid.NewGuid(), "Talla", [new(Guid.NewGuid(), 1, "store")]))),
+            ("exchangeSaleId", () => _supervisor.PostAsJsonAsync($"{sale}/outcome",
+                new PostReturnOutcomeRequest(Guid.NewGuid(), "exchange", till, "Cambio de talla", [new(Guid.NewGuid(), 1, "store")],
+                    ExchangeSaleId: Guid.Empty, NewLines: [new(1, Ids.Item, 1, 120000)], NewTenders: [new(1, "cash", 120000, 120000, 0)]))),
+        };
+        foreach (var (label, call) in cases) await Expect(label, call, Invalid, "input.id");
+        AssertNothingWrong();
+    }
+
+    [Fact]
     public async Task Unreadable_bodies_are_400_on_staff_routes()
     {
         var id = Guid.NewGuid();

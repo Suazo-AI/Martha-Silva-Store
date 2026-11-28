@@ -441,3 +441,7 @@ Each gap was first written as a failing test in `savia/tests/Savia.Tests/StaffIn
 Gaps 1-12 reproduced (fully or partly) and now pass; gap 13 is partly covered and gap 14 is open.
 Fixes: `Guard.MaxLength`, `Guard.Id` and `Guard.Currency` in `savia/src/Savia.Application/Core.cs`, called from the services; null array elements refused in `Sales.cs`, `Returns.cs` and `Catalog.cs`; migration `V065__staff_input_import_widths.sql`; a CHECK failure maps to 422 `db.check` in `savia/src/Savia.Domain/Errors.cs`; an unreadable staff body returns 400 `input.body` in `savia/src/Savia.Api/Endpoints.cs`.
 Local run: the new tests plus `DbErrorsTests`, `PilotSalesTests` and `OwnerDecisionsRound4Tests` passed 27 of 27; the full suite and CI results are in the commit record.
+
+Follow-up, 2026-11-27: `Remaining_client_ids_refuse_the_empty_id` sends an empty id to the 9 routes the first tests did not reach.
+With the 9 `Guard.Id` calls removed it failed on every case: 4 routes answered 204 and saved a row with the empty id (supplier, cash count, item values, return window), and 5 answered a later store error (409 or 404).
+With the guards in place it passes. The SEC-05 deploy to the hub is recorded in `savia/docs/deploy/AZURE.md` (revision `ca-savia-api--ge3309b1-1`).

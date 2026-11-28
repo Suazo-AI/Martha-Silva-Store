@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-28T03:19:04.493531+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/public-software/LAUNCH-CHECKLIST.md",
+      "change": "M",
+      "git_blob": "cde84a623eb8711a9ca31c16f82de8a0e9f0fe6c"
+    },
+    {
+      "path": "docs/public-software/SECURITY-RULES.md",
+      "change": "M",
+      "git_blob": "91af2db176f21151cbacfe22d159910a6c730a4f"
+    },
+    {
+      "path": "docs/public-software/evidence/sec05-staff-input-audit.md",
+      "change": "M",
+      "git_blob": "bdb4ce2f35910f80eee7c17689bd7e2715dda486"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/StaffInputValidationTests.cs",
+      "change": "M",
+      "git_blob": "21bf8a6043a78fa119f9ec304f59336edf73b34b"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}
