@@ -26,6 +26,8 @@ public sealed class CashService(ICashStore store, NodeContext node)
     {
         var branch = Guard.Branch(actor, node);
         Guard.Role(actor, Roles.TillOperators);
+        Guard.Id(request.TillId, "tillId");
+        Guard.Currency(request.CurrencyCode);
         if (await store.GetRegisterBranchAsync(request.RegisterId, ct) != branch)
             throw Errors.NotFound("cash.register_not_found", "La caja no existe en esta sucursal.");
         await store.OpenTillAsync(request, actor.StaffId, node.NodeId, ct);
@@ -36,6 +38,7 @@ public sealed class CashService(ICashStore store, NodeContext node)
         Guard.Role(actor, Roles.TillOperators);
         await RequireTillHereAsync(actor, tillId, ct);
         if (request.Lines is not { Length: > 0 }) throw Errors.Invalid("cash.count_empty", "El arqueo necesita denominaciones.");
+        Guard.Id(request.CashCountId, "cashCountId");
         await store.RecordCashCountAsync(tillId, request, actor.StaffId, ct);
     }
 
@@ -43,6 +46,7 @@ public sealed class CashService(ICashStore store, NodeContext node)
     {
         Guard.Role(actor, Roles.Approvers);
         await RequireTillHereAsync(actor, tillId, ct);
+        Guard.Id(request.ClosureId, "closureId");
         await store.CloseTillAsync(tillId, request, actor.StaffId, node.NodeId, ct);
         return await store.GetClosureAsync(tillId, ct)
             ?? throw Errors.NotFound("cash.closure_not_found", "El cierre no quedó registrado.");

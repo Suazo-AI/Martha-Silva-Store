@@ -27,8 +27,14 @@ public sealed class InventoryService(IInventoryStore store, NodeContext node)
         store.GetLabelJobsAsync(Guard.Branch(actor, node), status, ct);
 
     /// <summary>The print worker reports each attempt. A failed attempt keeps the job visible as failed.</summary>
-    public Task AcknowledgePrintAsync(Actor actor, Guid printJobId, AckPrintRequest request, CancellationToken ct) =>
-        store.AcknowledgePrintAsync(printJobId, Guard.Branch(actor, node), request, ct);
+    public Task AcknowledgePrintAsync(Actor actor, Guid printJobId, AckPrintRequest request, CancellationToken ct)
+    {
+        var branch = Guard.Branch(actor, node);
+        if (request.AttemptNo < 1) throw Errors.Invalid("label.attempt", "El número de intento empieza en 1.");
+        Guard.MaxLength(request.PrinterResponse, "printerResponse", 500);
+        Guard.Id(request.AttemptId, "attemptId");
+        return store.AcknowledgePrintAsync(printJobId, branch, request, ct);
+    }
 
     public Task<JsonElement> ExceptionsAsync(Actor actor, CancellationToken ct) => store.ExceptionsAsync(Guard.BranchRole(actor, node, Roles.Approvers), ct);
 

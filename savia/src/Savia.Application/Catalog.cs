@@ -91,6 +91,7 @@ public sealed class CatalogService(ICatalogStore store, ICatalogMaintenanceStore
     {
         RequireCatalogWriter(actor);
         Guard.Text(request.Name, "name", 200);
+        Guard.Id(request.SupplierId, "supplierId");
         return maintenance.CreateSupplierAsync(request, actor.StaffId, ct);
     }
 
@@ -98,6 +99,7 @@ public sealed class CatalogService(ICatalogStore store, ICatalogMaintenanceStore
     {
         RequireCatalogWriter(actor);
         Guard.Text(request.Name, "name", 200);
+        Guard.Id(request.ProductId, "productId");
         return store.RegisterProductAsync(request, actor.StaffId, node.NodeId, ct);
     }
 
@@ -107,6 +109,10 @@ public sealed class CatalogService(ICatalogStore store, ICatalogMaintenanceStore
         Guard.Role(actor, Roles.OwnerOnly);
         Guard.Text(request.Sku, "sku", 100);
         Guard.Text(request.VariantName, "variantName", 200);
+        Guard.Id(request.ItemId, "itemId");
+        Guard.Currency(request.CurrencyCode);
+        Guard.MaxLength(request.Barcode, "barcode", 128);
+        Guard.MaxLength(request.SupplierSku, "supplierSku", 128);
         return store.RegisterItemAsync(request, actor.StaffId, node.NodeId, ct);
     }
 
@@ -120,6 +126,7 @@ public sealed class CatalogService(ICatalogStore store, ICatalogMaintenanceStore
         if (node.BranchId is not null) Guard.Branch(actor, node);
         Guard.Role(actor, Roles.OwnerOnly);
         Guard.Text(request.Reason, "reason", 250);
+        Guard.Id(request.ChangeId, "changeId");
         return maintenance.SetItemValuesAsync(item, request, actor.StaffId, node.NodeId, ct);
     }
 
@@ -139,8 +146,9 @@ public sealed class CatalogService(ICatalogStore store, ICatalogMaintenanceStore
         RefuseOnHubStore();
         var branch = CatalogBranch(actor, Roles.OwnerOnly);
         Guard.Text(request.FileName, "fileName", 200);
-        if (request.Rows is not { Length: > 0 } || request.Rows.Length > CatalogFile.MaxRows)
+        if (request.Rows is not { Length: > 0 } || request.Rows.Length > CatalogFile.MaxRows || request.Rows.Contains(null))
             throw Errors.Invalid("import.size", $"El archivo debe tener entre 1 y {CatalogFile.MaxRows} filas.");
+        Guard.Id(request.BatchId, "batchId");
         var location = branch is null ? (Guid?)null : node.RequireLocation();
         return maintenance.ImportCatalogAsync(branch, location, request, actor.StaffId, node.NodeId, commit, ct);
     }

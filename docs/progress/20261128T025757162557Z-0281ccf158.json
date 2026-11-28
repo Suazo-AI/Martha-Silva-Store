@@ -1,0 +1,95 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-28T02:57:57.162557+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/public-software/LAUNCH-CHECKLIST.md",
+      "change": "M",
+      "git_blob": "d3c1bfe1de1343367b57cbb2763e0817ef1aa514"
+    },
+    {
+      "path": "docs/public-software/SECURITY-RULES.md",
+      "change": "M",
+      "git_blob": "9e0cc461b37fccf9ce314a9040ede3d7016d2690"
+    },
+    {
+      "path": "docs/public-software/evidence/sec05-staff-input-audit.md",
+      "change": "A",
+      "git_blob": "1e98d4672983417efed1f72057ffd42a9bc1447f"
+    },
+    {
+      "path": "savia/db/migrations/MANIFEST.sha256",
+      "change": "M",
+      "git_blob": "a1431e58f0f762b5889a1e52bf71116dbc2a3df2"
+    },
+    {
+      "path": "savia/db/migrations/V065__staff_input_import_widths.sql",
+      "change": "A",
+      "git_blob": "06620d7a4497166dc7cc9feb97e0e8f4dea670a7"
+    },
+    {
+      "path": "savia/src/Savia.Api/Endpoints.cs",
+      "change": "M",
+      "git_blob": "64ee4b89a4372b76c897c61fdfce392c74e62ba7"
+    },
+    {
+      "path": "savia/src/Savia.Application/Cash.cs",
+      "change": "M",
+      "git_blob": "bb6fedbed1dc95ff9452d354a2cd87375ea266aa"
+    },
+    {
+      "path": "savia/src/Savia.Application/Catalog.cs",
+      "change": "M",
+      "git_blob": "9556588a6d0683c7247eb0f5dad3014b13c06aba"
+    },
+    {
+      "path": "savia/src/Savia.Application/Core.cs",
+      "change": "M",
+      "git_blob": "70cffb7b367082d108f8e09d1d52689b3ad1ef47"
+    },
+    {
+      "path": "savia/src/Savia.Application/Customers.cs",
+      "change": "M",
+      "git_blob": "af536e468aaf6ab3f2e4eaeda08f4602634b1bb0"
+    },
+    {
+      "path": "savia/src/Savia.Application/Inventory.cs",
+      "change": "M",
+      "git_blob": "c1e0fb0ce3da226c1dccb1b4fa4036f32bc802ab"
+    },
+    {
+      "path": "savia/src/Savia.Application/Receiving.cs",
+      "change": "M",
+      "git_blob": "ea4054e4e71a4c19d97d12677d545ae0f4636dda"
+    },
+    {
+      "path": "savia/src/Savia.Application/Returns.cs",
+      "change": "M",
+      "git_blob": "8d3cc244ae3c8cb4392cdd2d4e688a003bb0b398"
+    },
+    {
+      "path": "savia/src/Savia.Application/Sales.cs",
+      "change": "M",
+      "git_blob": "8be643f58c8aeed656ee6e5a4b908d9c2f53c5c8"
+    },
+    {
+      "path": "savia/src/Savia.Domain/Errors.cs",
+      "change": "M",
+      "git_blob": "76bb94a6a3cbdfd9dbb176dee3775b64443658b8"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/DbErrorsTests.cs",
+      "change": "M",
+      "git_blob": "d7c88e615f072885b9493ba4bfe673be6461a071"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/StaffInputValidationTests.cs",
+      "change": "A",
+      "git_blob": "a55271a66188584ac210e3d9b68fcb63a467e482"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

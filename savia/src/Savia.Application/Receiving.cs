@@ -29,6 +29,9 @@ public sealed class ReceivingService(IReceivingStore store, NodeContext node)
         Guard.Branch(actor, node);
         Guard.Role(actor, Roles.Receivers);
         Guard.Text(request.Reference, "reference", 100);
+        Guard.Id(request.ScanSessionId, "scanSessionId");
+        Guard.Id(request.ContainerId, "containerId");
+        Guard.MaxLength(request.DeviceCode, "deviceCode", 80);
         return store.OpenSessionAsync(request, node.RequireLocation(), actor.StaffId, ct);
     }
 
@@ -38,6 +41,8 @@ public sealed class ReceivingService(IReceivingStore store, NodeContext node)
         Guard.Branch(actor, node);
         Guard.Role(actor, Roles.Receivers);
         Guard.Text(request.RawCode, "rawCode", 128);
+        Guard.Id(request.ScanId, "scanId");
+        Guard.MaxLength(request.DeviceCode, "deviceCode", 80);
         await RequireSessionHereAsync(sessionId, ct);
         return await store.RecordScanAsync(sessionId, request, actor.StaffId, ct);
     }
@@ -119,6 +124,7 @@ public sealed class ReceivingService(IReceivingStore store, NodeContext node)
     {
         Guard.BranchRole(actor, node, Roles.StockWorkers);
         Guard.Text(request.Reason, "reason", 250);
+        Guard.Id(request.CheckId, "checkId");
         return store.RecordQualityAsync(session, request, actor.StaffId, node.RequireLocation(), ct);
     }
 

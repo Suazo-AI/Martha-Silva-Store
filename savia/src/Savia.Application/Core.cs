@@ -60,4 +60,25 @@ public static class Guard
             throw Errors.Invalid("input.text", $"'{field}' es obligatorio y admite hasta {max} caracteres.");
         return value;
     }
+
+    /// <summary>Optional text: null is allowed, a longer value is refused before the procedure truncates it.</summary>
+    public static void MaxLength(string? value, string field, int max)
+    {
+        if (value?.Length > max) throw Errors.Invalid("input.text", $"'{field}' admite hasta {max} caracteres.");
+    }
+
+    /// <summary>Client-made ids must not be the empty id.</summary>
+    public static Guid Id(Guid value, string field)
+    {
+        if (value == Guid.Empty) throw Errors.Invalid("input.id", $"'{field}' necesita un identificador válido.");
+        return value;
+    }
+
+    /// <summary>An ISO currency code: exactly three letters.</summary>
+    public static string Currency(string? value)
+    {
+        if (value is not { Length: 3 } || !value.All(char.IsAsciiLetter))
+            throw Errors.Invalid("input.currency", "La moneda debe ser un código de tres letras.");
+        return value;
+    }
 }

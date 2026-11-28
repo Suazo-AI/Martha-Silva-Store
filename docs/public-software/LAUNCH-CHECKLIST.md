@@ -20,9 +20,9 @@ When a source document changes a control, update its row here in the same commit
 | Status | Meaning | Rows |
 | --- | --- | --- |
 | tested | Evidence in the repository exercises the control | 44 |
-| partial | Part of the control is tested; the rest is only built | 6 |
+| partial | Part of the control is tested; the rest is only built | 7 |
 | built | The code or config exists; no test proves it | 24 |
-| gap | Not built | 23 |
+| gap | Not built | 22 |
 | Total | | 97 |
 
 Result: launch is blocked. 53 of 97 control rows lack full evidence, and 3 of 7 self-tests are not run (ST-2, ST-5, ST-7); ST-1 ran in demo mode only.
@@ -35,7 +35,7 @@ Result: launch is blocked. 53 of 97 control rows lack full evidence, and 3 of 7 
 | SEC-02 | Every order field is checked and trimmed before save: 1-20 lines, quantity 1-10, no repeated SKU, length limits per field, email shape, provider `manual` or `card`, locale `es` or `en`, bot token up to 2048 characters. | built | No test exercises each field limit. The email check is minimal (an `@` not at either end). |
 | SEC-03 | A public request body is capped at 16 KB while it is read, not only from `Content-Length`. | tested | `WebStorePublicTests.cs` (`Body_over_16_KB_is_413`); Azure probe `run-20261124.json`. |
 | SEC-04 | `Idempotency-Key` must be a UUID; a reused key with a different body is refused (409 `idempotency_conflict`). | tested | `savia/tests/Savia.Tests/WebOrderVerticalSliceTests.cs:37` (409 `idempotency_conflict`); `savia/db/tests/webstore/090_web_order_replay_and_unpaid_limit.sql`. A non-UUID key is not tested. |
-| SEC-05 | Every staff route validates its body before save. | gap | Validation exists in services (example: `WebOrderVerticalSlicePaymentReviewTests.cs:38-39`), but no inventory proves every staff input is checked. Audit owed. |
+| SEC-05 | Every staff route validates its body before save. | partial | Audit `docs/public-software/evidence/sec05-staff-input-audit.md`: 31 staff JSON routes, 21 validated and 10 partial before the fix. Gaps 1-12 reproduced red, then fixed: length checks before the procedures truncate (`Guard.MaxLength`), `Guard.Id` against the empty id, `Guard.Currency`, null array elements refused, `V065` widens the import work table, CHECK failures map to 422 `db.check`, and unreadable staff bodies return 400 `input.body`. Tests: `StaffInputValidationTests.cs` and `DbErrorsTests.cs`. Still owed: a red test for some ids (`CashCountId`, `ClosureId`, `TransferId` and others), one invalid-body test per remaining route (gap 13), and gap 14. |
 | SEC-06 | The sync push body has a size cap and a schema check at the endpoint. | tested | `SyncTransportTests.cs` (`Hub_refuses_a_sync_body_that_is_not_one_json_object_or_is_too_large_before_sql`): six malformed bodies give 422 `sync.malformed`; 30,000,001 bytes give 422 `sync.too_large`. The schema check is one JSON object; field-level checks stay in SQL. Rows owned by another node are refused (`Hub_refuses_rows_owned_by_another_node`). |
 | SEC-07 | A tag photo upload is multipart only, staff only, at most 6 MB, and read locally (no external OCR). | built | No test sends a photo over 6 MB. |
 | SEC-08 | SQL runs as stored procedures or fixed SQL text, always with typed parameters; user text never becomes SQL text. | built | A manual search at `40132952` found no SQL built by string interpolation; no automated check exists. |

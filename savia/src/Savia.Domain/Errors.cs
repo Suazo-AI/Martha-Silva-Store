@@ -209,6 +209,9 @@ public static class DbErrors
             2601 when message.Contains("UX_OpenTill_Register", StringComparison.Ordinal) =>
                 new("cash.register_till_open", ErrorKind.Conflict, "Esta caja ya tiene un turno abierto. Ciérrelo antes de abrir otro."),
             2601 or 2627 => new("db.duplicate", ErrorKind.Conflict, "El registro ya existe."),
+            // 547 is both a foreign key and a CHECK constraint; a CHECK means the value is out of range, not a missing row.
+            547 when message.Contains("CHECK constraint", StringComparison.Ordinal) =>
+                new("db.check", ErrorKind.Validation, "Un valor está fuera del rango permitido."),
             547 => new("db.reference", ErrorKind.Conflict, "El registro referencia datos que no existen."),
             1205 or -2 => new("db.busy", ErrorKind.Unavailable, "La base de datos está ocupada. Reintente."),
             _ => new("db.error", ErrorKind.Internal, "Error interno de base de datos."),

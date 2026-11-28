@@ -33,6 +33,7 @@ public sealed class CustomersService(ICustomersStore store, NodeContext node)
         Optional(request.DocumentNumber, "documentNumber", 40);
         Optional(request.Phone, "phone", 40);
         Optional(request.Email, "email", 254);
+        Guard.Id(request.CustomerId, "customerId");
         return store.CreateAsync(request, actor.StaffId, ct);
     }
 
@@ -52,6 +53,7 @@ public sealed class CustomersService(ICustomersStore store, NodeContext node)
     {
         Guard.BranchRole(actor, node, Roles.TillOperators);
         Guard.Text(request.Reason, "reason", 400);
+        Guard.Id(request.TransferId, "transferId");
         return store.RequestTransferAsync(request, actor.StaffId, node.NodeId, ct);
     }
 

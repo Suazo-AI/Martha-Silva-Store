@@ -21,9 +21,12 @@ public sealed class ReturnsService(IReturnsStore store, SalesService sales, Node
         var branch = Guard.BranchRole(actor, node, Roles.TillOperators);
         Guard.Role(actor, Roles.Approvers);
         Guard.Text(request.Reason, "reason", 500);
-        if (request.Lines is not { Length: > 0 } || request.Lines.Select(l => l.SaleLineId).Distinct().Count() != request.Lines.Length)
+        if (request.Lines is not { Length: > 0 } || request.Lines.Contains(null) ||
+            request.Lines.Select(l => l.SaleLineId).Distinct().Count() != request.Lines.Length)
             throw Errors.Invalid("return.lines", "Indique lineas de devolucion sin duplicados.");
         foreach (var line in request.Lines) Guard.Text(line.RestockPool, "restockPool", 12);
+        Guard.Id(request.ReversalId, "reversalId");
+        Guard.Id(request.CreditId, "creditId");
         // Approval is the authenticated supervisor, never an approver id supplied by the browser.
         await store.ReturnAsync(branch, node.RequireLocation(), sale, request, actor.StaffId, node.NodeId, ct);
         var detail = await sales.DetailAsync(actor, sale, ct);
@@ -37,12 +40,22 @@ public sealed class ReturnsService(IReturnsStore store, SalesService sales, Node
         Guard.Text(request.Reason, "reason", 500);
         if (!Outcomes.Contains(request.Outcome))
             throw Errors.Invalid("return.outcome", "Elija cambio, efectivo o transferencia; el credito usa la devolucion a credito.");
-        if (request.Lines is not { Length: > 0 } || request.Lines.Select(l => l.SaleLineId).Distinct().Count() != request.Lines.Length)
+        if (request.Lines is not { Length: > 0 } || request.Lines.Contains(null) ||
+            request.Lines.Select(l => l.SaleLineId).Distinct().Count() != request.Lines.Length)
             throw Errors.Invalid("return.lines", "Indique lineas de devolucion sin duplicados.");
         foreach (var line in request.Lines) Guard.Text(line.RestockPool, "restockPool", 12);
         if (request.Reference?.Length > 120 || request.DifferenceReference?.Length > 120)
             throw Errors.Invalid("input.text", "La referencia admite hasta 120 caracteres.");
-        if (request.NewLines?.Length > 50 || request.NewTenders?.Length > 10) throw Errors.Invalid("return.exchange_lines", "Demasiadas lineas en el cambio.");
+        if (request.NewLines?.Length > 50 || request.NewTenders?.Length > 10 || request.NewLines?.Contains(null) == true ||
+            request.NewTenders?.Contains(null) == true)
+            throw Errors.Invalid("return.exchange_lines", "Demasiadas lineas en el cambio o lineas vacias.");
+        foreach (var tender in request.NewTenders ?? [])
+        {
+            Guard.Text(tender.TenderKind, "tenderKind", 20);
+            Guard.MaxLength(tender.Reference, "reference", 120);
+        }
+        Guard.Id(request.ReversalId, "reversalId");
+        if (request.ExchangeSaleId is { } exchange) Guard.Id(exchange, "exchangeSaleId");
         if (request.NewTenders?.Any(ForeignCash.HasFields) == true)
             throw Errors.Invalid("return.fx", "El cambio no admite dólares.");
         await store.ReturnOutcomeAsync(branch, node.RequireLocation(), sale, request, actor.StaffId, node.NodeId, ct);
@@ -57,6 +70,7 @@ public sealed class ReturnsService(IReturnsStore store, SalesService sales, Node
     {
         var branch = Guard.BranchRole(actor, node, Roles.OwnerOnly);
         Guard.Text(request.Reason, "reason", 250);
+        Guard.Id(request.ChangeId, "changeId");
         return store.SetReturnWindowAsync(branch, request, actor.StaffId, ct);
     }
 }

@@ -20,6 +20,15 @@ public sealed class DbErrorsTests
     }
 
     [Fact]
+    public void Check_constraint_is_a_validation_error_and_foreign_key_stays_a_reference()
+    {
+        var check = DbErrors.FromSql(547, "The INSERT statement conflicted with the CHECK constraint \"CK_Items_Cost\".");
+        var reference = DbErrors.FromSql(547, "The INSERT statement conflicted with the FOREIGN KEY constraint \"FK_Items_Product\".");
+        Assert.Equal(("db.check", ErrorKind.Validation), (check.Code, check.Kind));
+        Assert.Equal(("db.reference", ErrorKind.Conflict), (reference.Code, reference.Kind));
+    }
+
+    [Fact]
     public void Recovery_lock_has_a_named_code()
     {
         var error = DbErrors.FromSql(51864, "Sucursal restaurada: espere la reconstrucción.");

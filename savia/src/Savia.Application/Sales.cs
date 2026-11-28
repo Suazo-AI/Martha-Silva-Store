@@ -21,11 +21,15 @@ public sealed class SalesService(ISalesStore store, NodeContext node)
     {
         var branch = Guard.Branch(actor, node);
         Guard.Role(actor, Roles.TillOperators);
-        if (request.Lines is not { Length: > 0 } || request.Tenders is null)
+        if (request.Lines is not { Length: > 0 } || request.Tenders is null || request.Lines.Contains(null) || request.Tenders.Contains(null))
             throw Errors.Invalid("sale.empty", "La venta necesita al menos un artículo y un pago.");
         if (request.Lines.Select(l => l.LineNumber).Distinct().Count() != request.Lines.Length ||
             request.Tenders.Select(t => t.TenderNumber).Distinct().Count() != request.Tenders.Length)
             throw Errors.Invalid("sale.duplicate_line", "Números de línea o de pago repetidos.");
+        Guard.Id(request.SaleId, "saleId");
+        Guard.Currency(request.CurrencyCode);
+        Guard.MaxLength(request.DiscountReason, "discountReason", 250);
+        Guard.MaxLength(request.StockExceptionNote, "stockExceptionNote", 500);
         foreach (var tender in request.Tenders)
         {
             ForeignCash.Validate(tender);

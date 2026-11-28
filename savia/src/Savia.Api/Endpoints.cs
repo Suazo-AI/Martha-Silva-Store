@@ -64,6 +64,9 @@ public static class Http
         try
         {
             await next(http);
+            // An unreadable staff body fails binding with an empty 400; give it the same problem shape as every other refusal.
+            if (http.Response.StatusCode == StatusCodes.Status400BadRequest && !http.Response.HasStarted && StaffPath(http.Request.Path))
+                await http.Response.WriteAsJsonAsync(new ProblemResponse("input.body", "El cuerpo de la solicitud no es válido.", http.TraceIdentifier));
         }
         catch (SaviaException ex) when (!http.Response.HasStarted)
         {
@@ -82,6 +85,9 @@ public static class Http
             await http.Response.WriteAsJsonAsync(new ProblemResponse(ex.Error.Code, ex.Error.Message, http.TraceIdentifier));
         }
     });
+
+    // Public storefront routes keep their own error shape.
+    private static bool StaffPath(PathString path) => path.StartsWithSegments("/api") && !path.StartsWithSegments("/api/v1/public");
 }
 
 public static class SaviaEndpoints
