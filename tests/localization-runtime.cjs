@@ -472,6 +472,18 @@ test('one price format: $ symbol, comma thousands and two decimals in both langu
   }
 });
 
+test('catalog filter values from the URL are shown as text, never parsed as markup (ST-1, ZAP 10031)', async () => {
+  const category = '"><img src=x onerror=alert(1)>', q = "'><svg onload=alert(2)>";
+  await withPage('catalogo.html', {language: 'es', query: '?category=' + encodeURIComponent(category) + '&q=' + encodeURIComponent(q)}, async b => {
+    const chips = b.d.querySelector('[data-filter-chips]');
+    assert.ok(chips, 'filter chips render');
+    assert.equal(chips.querySelectorAll('img, svg, [onerror], [onload]').length, 0);
+    assert.equal(b.d.querySelectorAll('img[onerror], svg[onload]').length, 0);
+    assert.ok(chips.textContent.includes(category) && chips.textContent.includes(q), 'values shown literally');
+    assert.deepEqual([...chips.querySelectorAll('[data-remove-filter]')].map(n => n.dataset.removeFilter), ['category', 'q']);
+  });
+});
+
 (async () => {
   let failed = 0;
   for (const [name, run] of tests) {
