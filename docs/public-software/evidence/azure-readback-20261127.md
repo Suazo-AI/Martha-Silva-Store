@@ -51,7 +51,9 @@ Log Analytics query over 30 days (aggregates only; no row was read):
 | traces | 113,297 | 0 | 0 | 0 | 0 |
 | dependencies | 26,481 | 0 | 0 | 0 | 19 |
 
-The email pattern also matched `%40` (an encoded @).
+The email pattern is `[A-Za-z0-9._%+-]+(@|%40)[A-Za-z0-9-]+\.[A-Za-z]{2,}`, so it also matches `%40` (an encoded @).
+Positive control, same workspace and same pattern (`print ... matches regex e`): `ana.prueba@example.com` true, `/x?m=ana.prueba%40example.com` true, `no email here` false, `a@bxcom` false.
+The query JSON was written by Python, because an earlier hand-written file had invalid escapes; the counts above come from the corrected query.
 Query parameter names in those URLs: `date`, `period` (`/api/v1/reports/*`), `code` (`/api/v1/catalog/lookup` on the e2e app), and `api-version`, `client_id`, `resource` (managed identity token calls to localhost).
 None of them carry personal data.
 The exceptions table had no rows in 30 days.
