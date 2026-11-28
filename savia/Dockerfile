@@ -2,11 +2,12 @@
 # SAVIA container images. Build context: the savia/ folder.
 #   docker build --target api      -t savia-api      savia    # hub API + static web (default target)
 #   docker build --target migrator -t savia-migrator savia    # one-off migration job
-# Base images are pinned by digest (SDK 10.0.402 = global.json; runtime 10.0.13 = the SDK's runtime).
+# Base images are pinned by digest (SDK 10.0.402 = global.json; runtime 10.0.15, a newer patch the app rolls forward to,
+# for CVE-2026-114146/114147/114149 and GHSA-p3jp-9v83-76w9 found by the ST-6 image scan).
 # No secrets enter the image: configuration arrives as environment variables at run time.
 
 ARG SDK_IMAGE=mcr.microsoft.com/dotnet/sdk:10.0.402@sha256:747cbade5bfd918a175ac32f8f1d931edec2c7d0d5397a3de72eaef1ac1f66d2
-ARG RUNTIME_IMAGE=mcr.microsoft.com/dotnet/aspnet:10.0.13@sha256:8af87eba5e7cdafb1514d7388be287365da97c132509e84dfe252ffd552398ca
+ARG RUNTIME_IMAGE=mcr.microsoft.com/dotnet/aspnet:10.0.15@sha256:aac50ceef10391e78a899e3d2ccd00bbafa2dcb56ccf4586cbccf00edb84fc21
 
 FROM ${SDK_IMAGE} AS build
 ENV DOTNET_CLI_TELEMETRY_OPTOUT=1 DOTNET_NOLOGO=1

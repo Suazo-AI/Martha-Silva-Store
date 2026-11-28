@@ -173,7 +173,7 @@ Each entry point is launch-ready only when its controls are `tested` and its owe
 | ST-3 | Dependency scan: `dotnet list package --vulnerable --include-transitive` and `npm audit`. | Repository. | Run 2026-11-27: PASS, 0 vulnerable packages in 7 .NET projects and 0 npm findings in 3 lockfiles (`docs/public-software/evidence/scans-20261127/SUMMARY.md`). Not in CI (SEC-27). |
 | ST-4 | Full-history secret scan (for example gitleaks). | Repository, all reachable commits. | Partial run 2026-11-27: gitleaks stopped after 964 of about 1,290 commits (partial clone, 34 blobs missing); 2,915 raw hits, 0 real-looking credentials (`docs/public-software/evidence/scans-20261127/SUMMARY.md`). |
 | ST-5 | Role-by-route authorization test for every staff route. | `savia/tests/Savia.Tests`. | Not written. |
-| ST-6 | Container image scan (for example Trivy). | `savia-api` image. | Run 2026-11-27 on image `c7e30bc4`: 6 HIGH, 0 CRITICAL, all fixable by a newer runtime base image; the app layer has 0 (`docs/public-software/evidence/scans-20261127/SUMMARY.md`). |
+| ST-6 | Container image scan (for example Trivy). | `savia-api` image. | Run 2026-11-27 on image `c7e30bc4`: 6 HIGH, 0 CRITICAL, all fixable by a newer runtime base image; the app layer has 0 (`docs/public-software/evidence/scans-20261127/SUMMARY.md`). After the runtime bump to aspnet 10.0.15 in `savia/Dockerfile`: 0 HIGH, 0 CRITICAL, 18 MEDIUM, 6 LOW (`st6-trivy-runtime15.txt`). Not in CI. |
 | ST-7 | Paid external penetration test. | Storefront and hub. | Optional; Jason's money decision. |
 
 ## Not part of this checklist, still required for production

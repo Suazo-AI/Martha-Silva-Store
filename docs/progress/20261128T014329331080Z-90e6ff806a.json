@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-28T01:43:29.331080+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "docs/public-software/LAUNCH-CHECKLIST.md",
+      "change": "M",
+      "git_blob": "0649a49791d425bf29e6d91832137e7fa277389f"
+    },
+    {
+      "path": "docs/public-software/THREAT-MAP.md",
+      "change": "M",
+      "git_blob": "da730a47ba242b39f200b8c59f2911e01d8e80dc"
+    },
+    {
+      "path": "docs/public-software/evidence/scans-20261127/st6-trivy-runtime15.txt",
+      "change": "A",
+      "git_blob": "b91450066b25c2efa90fc206da9469e34037c9bb"
+    },
+    {
+      "path": "savia/Dockerfile",
+      "change": "M",
+      "git_blob": "0e6c4a780c32224fd14e720592b0eff7fd477280"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

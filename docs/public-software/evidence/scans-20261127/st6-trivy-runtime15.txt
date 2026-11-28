@@ -1,0 +1,10 @@
+ST-6 rescan after the runtime bump (savia/Dockerfile: aspnet 10.0.15@sha256:aac50cee...), 2026-11-27.
+Image: local build savia-api:runtime15 (ID sha256:40fa3c1e375130434773305312b0cc51d92cf5ec5c350d2c3471e8332a2c3252), same source as 0ae54627 plus the Dockerfile change.
+Tool: aquasec/trivy@sha256:8f6bb947dbc528902e11f2f5be52f7b519f6a39d5d148f41166f2040499768fb, --scanners vuln.
+
+│                                      Target                                      │    Type     │ Vulnerabilities │
+│ savia-api:runtime15 (ubuntu 24.04)                                               │   ubuntu    │       24        │
+│ app/Savia.Api.deps.json                                                          │ dotnet-core │        0        │
+│ usr/share/dotnet/shared/Microsoft.AspNetCore.App/10.0.15/Microsoft.AspNetCore.A- │ dotnet-core │        0        │
+│ usr/share/dotnet/shared/Microsoft.NETCore.App/10.0.15/Microsoft.NETCore.App.dep- │ dotnet-core │        0        │
+Total: 24 (UNKNOWN: 0, LOW: 6, MEDIUM: 18, HIGH: 0, CRITICAL: 0)
