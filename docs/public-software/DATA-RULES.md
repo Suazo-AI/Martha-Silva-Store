@@ -2,8 +2,8 @@
 
 Version: 0.1
 Date: 2026-11-27
-Status: draft, awaiting Jason's approval
-Approval: pending
+Status: approved
+Approval: Jason approved version 0.1 on 2026-11-27, including the LOGIN-07 and LOGIN-08 update of commit `c7e30bc4`.
 
 Scope: personal data in the SAVIA hub, the store PCs, the storefront browser code, telemetry, logs and backups.
 The legacy `backend/` directory and `docs/DATABASE.md` describe an older system and are out of scope.

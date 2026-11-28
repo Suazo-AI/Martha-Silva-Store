@@ -2,8 +2,8 @@
 
 Version: 0.1
 Date: 2026-11-27
-Status: draft, awaiting Jason's approval
-Approval: pending
+Status: approved
+Approval: Jason approved version 0.1 on 2026-11-27, including the LOGIN-07 and LOGIN-08 update of commit `c7e30bc4`.
 Scope: storefront (Cloudflare Worker `martha-silva-preview`), hub API `ca-savia-api` (Azure Container Apps, Azure SQL), store node TIENDA1 (store PC), CI/CD.
 Code references are file:line at commit `40132952` (branch `Tony`); lines drift after that commit.
 Related documents: [THREAT-MAP](THREAT-MAP.md), [LOGIN-RULES](LOGIN-RULES.md), [DATA-RULES](DATA-RULES.md).

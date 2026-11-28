@@ -2,8 +2,8 @@
 
 Version: 0.1
 Date: 2026-11-27
-Status: draft, awaiting Jason's approval
-Approval: pending
+Status: approved
+Approval: Jason approved version 0.1 on 2026-11-27, including the LOGIN-07 and LOGIN-08 update of commit `c7e30bc4`.
 
 Scope: the SAVIA hub (`savia/src`, Azure Container Apps) and the store PCs (Branch nodes).
 The legacy `backend/` directory and the demo admin in `src/` are out of scope.

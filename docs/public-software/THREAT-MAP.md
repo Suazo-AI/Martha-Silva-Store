@@ -2,8 +2,8 @@
 
 Version: 0.1
 Date: 2026-11-27
-Status: draft, awaiting Jason's approval
-Approval: pending
+Status: approved
+Approval: Jason approved version 0.1 on 2026-11-27, including the LOGIN-07 and LOGIN-08 update of commit `c7e30bc4`.
 Scope: every entry point of the storefront, the hub API `ca-savia-api`, the store node TIENDA1, CI/CD and the cloud consoles.
 Code references are at commit `40132952` (branch `Tony`).
 Control IDs `SEC-xx` are defined in [SECURITY-RULES](SECURITY-RULES.md).
