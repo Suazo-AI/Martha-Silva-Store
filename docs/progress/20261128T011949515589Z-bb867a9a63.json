@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-28T01:19:49.515589+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": "savia/src/Savia.Api/BotCheck.cs",
+      "change": "M",
+      "git_blob": "1fd80b46ce8e6b649c69e61658bb08bacf913f73"
+    },
+    {
+      "path": "savia/src/Savia.Api/Endpoints.cs",
+      "change": "M",
+      "git_blob": "2ef9bcabb1057ad3a0f4a2cca2dff3affe4e5891"
+    },
+    {
+      "path": "savia/src/Savia.Api/PublicEndpoints.cs",
+      "change": "M",
+      "git_blob": "2ee6a6ab1af8b99c1a0c28370e5a113db51a6058"
+    },
+    {
+      "path": "savia/src/Savia.Api/SafeLog.cs",
+      "change": "D",
+      "git_blob": null
+    },
+    {
+      "path": "savia/src/Savia.Api/WebStoreHosting.cs",
+      "change": "M",
+      "git_blob": "06f8f034aceffbf9c3d4fad2baf0f43b6caa89f5"
+    },
+    {
+      "path": "savia/src/Savia.Infrastructure/SafeLog.cs",
+      "change": "A",
+      "git_blob": "0720cf459436b0bf56bbd1ec2f29b26c3b33cb9b"
+    },
+    {
+      "path": "savia/tests/Savia.Tests/SafeLogTests.cs",
+      "change": "M",
+      "git_blob": "551f78a5677d425c890b9fd8f2c626c490982c3f"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

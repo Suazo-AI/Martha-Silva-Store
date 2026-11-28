@@ -1,6 +1,6 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
-using Savia.Api;
+using Savia.Infrastructure;
 using Savia.Domain;
 
 namespace Savia.Tests;

@@ -1,6 +1,7 @@
 using Savia.Application;
 using Savia.Contracts;
 using Savia.Domain;
+using Savia.Infrastructure;
 
 namespace Savia.Api;
 

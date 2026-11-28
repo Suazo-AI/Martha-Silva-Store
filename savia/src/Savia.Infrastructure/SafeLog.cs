@@ -1,7 +1,8 @@
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Logging;
 using Savia.Domain;
 
-namespace Savia.Api;
+namespace Savia.Infrastructure;
 
 /// <summary>
 /// SEC-46: logs name ids, paths and error codes, never contact details. An exception message can quote row values
