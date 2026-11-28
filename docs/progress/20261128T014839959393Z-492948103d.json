@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "recorded_at_utc": "2026-11-28T01:48:39.959393+00:00",
+  "event": "git-checkpoint",
+  "branch": "Tony",
+  "validation": "NOT_RUN_BY_HOOK",
+  "files": [
+    {
+      "path": ".github/workflows/security-scans.yml",
+      "change": "A",
+      "git_blob": "9bc3f0f391a0ad97ff309ced15c1865187e9b1f7"
+    },
+    {
+      "path": ".gitleaks.toml",
+      "change": "A",
+      "git_blob": "135c757596c25893656f301abdea11ed58bff605"
+    },
+    {
+      "path": ".gitleaksignore",
+      "change": "A",
+      "git_blob": "49294c97de73b20fd2454024c42d26d969878f67"
+    },
+    {
+      "path": "docs/public-software/evidence/scans-20261127/st4-full-mirror.txt",
+      "change": "A",
+      "git_blob": "877722015517ca612304a3954216074300f20585"
+    }
+  ],
+  "meaning": "Recorded bytes, not product acceptance. See status and attached evidence."
+}

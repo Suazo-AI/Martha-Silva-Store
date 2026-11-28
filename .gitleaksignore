@@ -1,0 +1,32 @@
+# Reviewed gitleaks hits that are not secrets (ST-4, 2026-11-27). One fingerprint per line: commit:file:rule:line.
+# Review notes: docs/public-software/evidence/scans-20261127/st4-full-mirror.txt. Add a line only after reviewing the value.
+# prose sentence
+63a8b1e9bfe50e9426295cb22097514fc15155e7:docs/savia-ux-20261116/navigation/README.md:generic-api-key:32
+# test or fixture idempotency key made of words
+ad088697fe73a55767060eef1f958193461bf47e:docs/cash-register-20261107/recovery-preparation/sql-runtime-20261110/recovery-baseline.json:generic-api-key:6
+# test or fixture idempotency key made of words
+030b64f7cba87c6a0d710892deb9a8493ea8bbf4:docs/session-csrf-20261107/worker/TEST-INVENTORY.txt:generic-api-key:161
+# third-party doc placeholder "sk-live-abc123..."
+9b387873cb5cb94e5b8c5450f32723f6b7b14d6e:.agents/skills/workers-best-practices/references/configuration.md:generic-api-key:82
+# test variable name
+6aeb9a35f45331ace85ac48dc19bfd9264b0f722:tests/golden-path/browser_path.mjs:generic-api-key:243
+# test or fixture idempotency key made of words
+744f245b598703def6ef42d139015fc4aa3fec83:backend/tests/Martha.Store.Api.Tests/InternalBranchScopeSqlTests.cs:generic-api-key:162
+# test or fixture idempotency key made of words
+4a9c11e45953512a41c7152e2f79f9f5a10743a6:backend/tests/Martha.Store.Api.Tests/InternalDirectorySecurityTests.cs:generic-api-key:73
+# test or fixture idempotency key made of words
+4a9c11e45953512a41c7152e2f79f9f5a10743a6:backend/tests/Martha.Store.Api.Tests/InternalDirectorySecurityTests.cs:generic-api-key:99
+# test or fixture idempotency key made of words
+4a9c11e45953512a41c7152e2f79f9f5a10743a6:backend/tests/Martha.Store.Api.Tests/InternalDirectorySecurityTests.cs:generic-api-key:156
+# test or fixture idempotency key made of words
+4a9c11e45953512a41c7152e2f79f9f5a10743a6:backend/tests/Martha.Store.Api.Tests/InternalSupplySqlServerTests.cs:generic-api-key:247
+# test or fixture idempotency key made of words
+249b7a9c8763c979f9fcdd1ac9933c480029bd78:backend/tests/Martha.Store.Api.Tests/SaviaSqlServerIntegrationTests.cs:generic-api-key:474
+# test or fixture idempotency key made of words
+005997a3b2291994b25967629d23cd43e4379d9e:backend/tests/Martha.Store.Api.Tests/SaviaContractTests.cs:generic-api-key:141
+# test or fixture idempotency key made of words
+446cbfc61452c8ca95a80d4245771dcccb146633:contracts/README.md:generic-api-key:22
+# test or fixture idempotency key made of words
+7e560a83878c91ccbe36760bdb73baaf16c45ed8:tests/integration-adapters.test.js:generic-api-key:32
+# RSA-2048 public key in the vendor browser SDK (DER 30820122, rsaEncryption)
+ad92641cb174995ad0210066afb5cffb0b6b9e86:research/rea/inputs/tilopay/sdk_tpay.min.js:generic-api-key:1

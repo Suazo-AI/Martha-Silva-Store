@@ -1,0 +1,22 @@
+# Secret scan settings (SEC-12, ST-4). The default gitleaks rules stay on; only identifier shapes are allowed.
+# The 2026-11-27 full-history scan classified every hit (docs/public-software/evidence/scans-20261127/):
+# SHA-256 digests in evidence files and GUID ids (test keys, an Azure role id) matched the generic-api-key rule.
+# Neither shape is a credential this project uses: node secrets, Turnstile and Azure keys have other formats.
+# A reviewed one-off hit goes in .gitleaksignore by fingerprint, never as a broader rule here.
+title = "Martha Silva Store secret scan"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "SHA-256 digests and GUID ids are identifiers, not secrets"
+regexTarget = "secret"
+regexes = [
+  '''^[0-9a-fA-F]{64}$''',
+  '''^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$''',
+]
+
+[[allowlists]]
+description = "savia-api image tags are git commit ids"
+regexTarget = "match"
+regexes = ['''savia-api:[0-9a-f]{40}''']

@@ -1,0 +1,83 @@
+name: Security scans
+
+# SEC-12 (full-history secret scan), SEC-27 (dependency vulnerabilities) and ST-6 (API image) on every push and weekly.
+# Tools are pinned by digest. No deploy, no secrets, read-only token.
+# Evidence and the review of every allowed hit: docs/public-software/evidence/scans-20261127/.
+on:
+  push:
+    branches: [main, Tony]
+  pull_request:
+    branches: [main, Tony]
+  schedule:
+    - cron: '17 9 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: security-scans-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DOTNET_VERSION: '10.0.402'
+  DOTNET_NOLOGO: '1'
+  DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+  GITLEAKS_IMAGE: zricethezav/gitleaks@sha256:c00b6bd0aeb3071cbcb79009cb16a60dd9e0a7c60e2be9ab65d25e6bc8abbb7f
+  TRIVY_IMAGE: aquasec/trivy@sha256:8f6bb947dbc528902e11f2f5be52f7b519f6a39d5d148f41166f2040499768fb
+
+jobs:
+  secrets:
+    name: Secret scan, full history (gitleaks)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: gitleaks over every fetched commit
+        run: |
+          docker run --rm -v "$PWD:/repo:ro" "$GITLEAKS_IMAGE" git /repo --log-opts="--all" \
+            --config /repo/.gitleaks.toml --gitleaks-ignore-path /repo/.gitleaksignore --redact --exit-code 1
+
+  dependencies:
+    name: Dependency vulnerabilities (.NET, npm)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        with:
+          node-version: '24'
+      - name: .NET packages, including transitive ones
+        run: |
+          dotnet restore savia/Savia.slnx --locked-mode
+          dotnet list savia/Savia.slnx package --vulnerable --include-transitive | tee vulnerable.txt
+          if grep -q "has the following vulnerable packages" vulnerable.txt; then echo "::error::vulnerable .NET package"; exit 1; fi
+      - name: npm lockfiles (high and critical fail)
+        run: |
+          for dir in . savia tests/frontend-deps; do
+            echo "npm audit in $dir"
+            (cd "$dir" && npm audit --audit-level=high)
+          done
+
+  image:
+    name: API image scan (Trivy)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Build the API image
+        run: docker build --target api --tag savia-api:ci savia
+      - name: Fixable HIGH and CRITICAL fail
+        run: |
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock "$TRIVY_IMAGE" image --scanners vuln \
+            --severity HIGH,CRITICAL --ignore-unfixed --exit-code 1 savia-api:ci

@@ -1,0 +1,20 @@
+ST-4 full-history secret scan on a complete clone, 2026-11-27 (closes the partial run in SUMMARY.md).
+
+Clone: `gh repo clone Suazo-AI/Martha-Silva-Store mirror.git -- --mirror` in the session scratchpad (not the shared checkout).
+It holds every ref published on GitHub: 376 commits (`git rev-list --all`), 585 MiB pack, no missing blobs.
+Commits that exist only in local agent refs of the shared checkout were not scanned; they are not published.
+Tool: zricethezav/gitleaks@sha256:c00b6bd0aeb3071cbcb79009cb16a60dd9e0a7c60e2be9ab65d25e6bc8abbb7f (v8.30.1), `git /repo --log-opts="--all" --redact`.
+
+Run 1, with `.gitleaks.toml` (default rules + SHA-256 and GUID value allowlist): 362 commits scanned, 26 hits.
+Each hit was classified by the shape of its value inside the script; no value was printed or stored.
+- 8 x 40-hex `savia-api:<commit>` image tags in this evidence folder: allowed by a match rule for that exact form.
+- 13 x idempotency or fixture keys made of words (for example `one-valid-key-1234`) in tests, contracts and evidence.
+- 1 x prose sentence (docs/savia-ux-20261116/navigation/README.md:32).
+- 1 x third-party documentation placeholder `sk-live-abc123...` (.agents/skills/workers-best-practices/references/configuration.md:82).
+- 1 x test variable name (tests/golden-path/browser_path.mjs:243).
+- 1 x 392-character value in the TiloPay public browser SDK (research/rea/inputs/tilopay/sdk_tpay.min.js:1):
+  it decodes to 294 bytes starting 30820122 with the rsaEncryption OID, an RSA-2048 public key, not a secret.
+The 18 non-tag hits (15 distinct fingerprints) are listed in `.gitleaksignore`.
+
+Run 2, with `.gitleaks.toml` and `.gitleaksignore`: 362 commits scanned, "no leaks found".
+Result: no credential in the published history. CI repeats this scan on every push (.github/workflows/security-scans.yml).
