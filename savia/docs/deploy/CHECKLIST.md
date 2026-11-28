@@ -71,6 +71,9 @@ docker push "$acr.azurecr.io/savia-migrator:$sha"
 az deployment group create --resource-group rg-savia-prod `
   --template-file savia/deploy/azure/main.bicep --parameters '@savia/.out/main.parameters.json' `
   deployApps=true apiImage="$acr.azurecr.io/savia-api:$sha" migratorImage="$acr.azurecr.io/savia-migrator:$sha"
+# On a redeploy, also pass apiTrafficRevision=<live revision> so traffic stays on the smoke-tested revision,
+# and run `az deployment group what-if` with the same parameters first: it must remove no env, secret or CORS entry (SEC-18).
+# The template reads the Turnstile secret from Key Vault secret turnstile-secret; create it before deployApps=true (SEC-14).
 pwsh savia/deploy/migrate.ps1 -ResourceGroup rg-savia-prod -JobName caj-savia-migrate `
   -SqlServer "<sqlServerName>" -Database savia -MigratorImage "$acr.azurecr.io/savia-migrator:$sha" -RunId first
 pwsh savia/deploy/smoke.ps1 -BaseUrl "https://$(az containerapp show -n ca-savia-api -g rg-savia-prod --query properties.configuration.ingress.fqdn -o tsv)"

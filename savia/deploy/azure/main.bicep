@@ -53,6 +53,15 @@ param backupRedundancy string = 'Geo'
 @maxValue(3)
 param apiMinReplicas int = 0
 
+@description('Storefront origin allowed to call the public API (CORS and the API origin check, SEC-18).')
+param publicAllowedOrigin string = 'https://martha-silva-preview.jason-suazof.workers.dev'
+
+@description('Storefront page that shows an order after checkout or a payment return (SEC-18).')
+param publicOrderPageUrl string = 'https://martha-silva-preview.jason-suazof.workers.dev/pedido'
+
+@description('Revision that keeps 100% of traffic on a redeploy, for example ca-savia-api--gc4b45ae-1. Empty sends traffic to the newest revision (first deploy only).')
+param apiTrafficRevision string = ''
+
 @description('GitHub repository allowed to deploy through OIDC (owner/name).')
 param githubRepository string = 'Suazo-AI/Martha-Silva-Store'
 
@@ -305,16 +314,45 @@ resource api 'Microsoft.App/containerApps@2024-03-01' = if (deployApps) {
         targetPort: 8080
         transport: 'auto'
         allowInsecure: false
+        // SEC-18: a redeploy keeps traffic on the smoke-tested revision instead of the one it creates.
         traffic: [
-          {
+          empty(apiTrafficRevision) ? {
             latestRevision: true
+            weight: 100
+          } : {
+            revisionName: apiTrafficRevision
             weight: 100
           }
         ]
+        corsPolicy: {
+          allowCredentials: false
+          allowedHeaders: [
+            'Content-Type'
+            'Idempotency-Key'
+            'X-Order-Token'
+          ]
+          allowedMethods: [
+            'GET'
+            'POST'
+            'OPTIONS'
+          ]
+          allowedOrigins: [
+            publicAllowedOrigin
+          ]
+        }
       }
       registries: [
         {
           server: registry.properties.loginServer
+          identity: apiIdentity.id
+        }
+      ]
+      // SEC-14 and SEC-18: the Turnstile secret is a Key Vault reference read by the API identity.
+      // The template holds no value; a redeploy fails while the vault has no secret named turnstile-secret.
+      secrets: [
+        {
+          name: 'turnstile-secret'
+          keyVaultUrl: '${vault.properties.vaultUri}secrets/turnstile-secret'
           identity: apiIdentity.id
         }
       ]
@@ -358,13 +396,25 @@ resource api 'Microsoft.App/containerApps@2024-03-01' = if (deployApps) {
               value: '10'
             }
             {
+              name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
+              value: appInsights.properties.ConnectionString
+            }
+            {
+              name: 'Savia__Public__AllowedOrigins'
+              value: publicAllowedOrigin
+            }
+            {
+              name: 'Savia__Public__OrderPageUrl'
+              value: publicOrderPageUrl
+            }
+            {
+              name: 'Savia__Public__Turnstile__Secret'
+              secretRef: 'turnstile-secret'
+            }
+            {
               // SEC-33: staff, sync and readiness requests per client address per minute.
               name: 'Savia__Hosting__PerMinute'
               value: '300'
-            }
-            {
-              name: 'APPLICATIONINSIGHTS_CONNECTION_STRING'
-              value: appInsights.properties.ConnectionString
             }
           ]
           probes: [
@@ -414,6 +464,7 @@ resource api 'Microsoft.App/containerApps@2024-03-01' = if (deployApps) {
   }
   dependsOn: [
     apiAcrPull
+    apiSecretsUser
   ]
 }
 
