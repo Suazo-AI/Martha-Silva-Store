@@ -19,13 +19,13 @@ When a source document changes a control, update its row here in the same commit
 
 | Status | Meaning | Rows |
 | --- | --- | --- |
-| tested | Evidence in the repository exercises the control | 39 |
+| tested | Evidence in the repository exercises the control | 44 |
 | partial | Part of the control is tested; the rest is only built | 5 |
-| built | The code or config exists; no test proves it | 27 |
-| gap | Not built | 26 |
+| built | The code or config exists; no test proves it | 24 |
+| gap | Not built | 24 |
 | Total | | 97 |
 
-Result: launch is blocked. 58 of 97 control rows lack full evidence, and 3 of 7 self-tests are not run (ST-2, ST-5, ST-7); ST-1 ran in demo mode only.
+Result: launch is blocked. 53 of 97 control rows lack full evidence, and 3 of 7 self-tests are not run (ST-2, ST-5, ST-7); ST-1 ran in demo mode only.
 
 ## Security controls (SECURITY-RULES)
 
@@ -43,16 +43,16 @@ Result: launch is blocked. 58 of 97 control rows lack full evidence, and 3 of 7 
 | SEC-10 | The storefront escapes catalog and order text before it inserts HTML. | built | No test injects markup into storefront templates. |
 | SEC-11 | No secret, key file, `.env`, database or cookie file enters a commit. | tested | `tests/test_progress.py` (`test_secret_in_index_blocks_even_if_worktree_cleaned`, `test_frozen_import_retains_secret_and_mode_guards`). The pattern list covers only a few token formats. |
 | SEC-12 | A full-history secret scan (for example gitleaks) runs in CI and before each release. | tested | `.github/workflows/security-scans.yml` job `secrets`: gitleaks (pinned by digest) on all refs with `.gitleaks.toml` and 15 reviewed fingerprints in `.gitleaksignore`; CI run 46094975837 (Security scans, green): 363 commits scanned, no leaks. Runs on push, pull request and weekly. Full mirror run: `docs/public-software/evidence/scans-20261127/st4-full-mirror.txt`. |
-| SEC-13 | The hub reaches Azure SQL with managed identities; no SQL password exists for the hub. | built | Readback of the API connection string in `docs/production-20261122/STORE-PC-20261124.md` (H2 section). |
+| SEC-13 | The hub reaches Azure SQL with managed identities; no SQL password exists for the hub. | tested | Readback 2026-11-27 (`docs/public-software/evidence/azure-readback-20261127.md`): Entra-only authentication `true`, so no SQL password can sign in; the API connection string uses `Active Directory Managed Identity` with no password. |
 | SEC-14 | The Turnstile secret lives only in the Container App secret `turnstile-secret`, read as `secretref`; it is never printed. | built | Not in `main.bicep`. `STOREFRONT-DEPLOY.md:39` and `RUNBOOK.md:185` say Key Vault; they disagree with AZURE.md and must be corrected. Proposal: move it to a Key Vault reference. |
-| SEC-15 | Key Vault uses RBAC only, soft delete 90 days and purge protection; only the API identity reads secrets. | built | The operator account has no data role (`STORE-PC-20261124.md:22`). |
+| SEC-15 | Key Vault uses RBAC only, soft delete 90 days and purge protection; only the API identity reads secrets. | tested | Readback 2026-11-27 (`docs/public-software/evidence/azure-readback-20261127.md`): RBAC on, soft delete 90 days, purge protection on; the only data role is `Key Vault Secrets User` for `id-savia-api-bukmlt`. The subscription Owner can still grant itself a data role. Network access is public; RBAC is the gate. |
 | SEC-16 | The sync API refuses any call without a valid node credential. | tested | `SyncTransportTests.cs` (`Hub_refuses_a_call_without_a_valid_node_credential`); Azure probe 401 in `run-20261124.json`. The hub keeps only the SHA-256 of the secret and the store keeps it in a DPAPI file for one Windows user (built; see LOGIN-19). The Key Vault path (RUNBOOK 3.1) has not run. |
 | SEC-17 | CI signs in to Azure with OIDC from the `production` environment only; no Azure secret is stored in GitHub; actions are pinned by commit SHA. | built | The deploy job has not run on GitHub (`savia/docs/deploy/CHECKLIST.md:15`); deploys so far were manual. |
 | SEC-18 | Production settings set by CLI are in code, so a template redeploy cannot drop them. | gap | `Savia__Public__AllowedOrigins`, `Savia__Public__OrderPageUrl` and the Turnstile `secretref` are absent from `main.bicep`. A redeploy with `deployApps=true` would likely replace the env list, and orders would then fail closed (inference from the template, not tested). |
 | SEC-19 | The storefront is HTTPS only and sends HSTS (one year, subdomains). | tested | `tests/static_headers.py` (run by `tests/check.py:93`). `STOREFRONT-DEPLOY.md:4` and `:76` disagree on HSTS; the built file has it. |
 | SEC-20 | The hub ingress refuses plain HTTP; the app adds HSTS outside Development. | built | The hub HSTS header is not asserted by a test. |
-| SEC-21 | Hub to Azure SQL uses TLS 1.2 or later with certificate validation. | built |  |
-| SEC-22 | Azure SQL data and backups are encrypted at rest (TDE). | gap | Readback owed (`az sql db tde show`). |
+| SEC-21 | Hub to Azure SQL uses TLS 1.2 or later with certificate validation. | tested | Readback 2026-11-27 (`docs/public-software/evidence/azure-readback-20261127.md`): server `minimalTlsVersion` 1.2; live connection string `Encrypt=True;TrustServerCertificate=False`. |
+| SEC-22 | Azure SQL data and backups are encrypted at rest (TDE). | tested | Readback 2026-11-27 (`docs/public-software/evidence/azure-readback-20261127.md`): TDE `Enabled` on `savia` and on the pre-migration copy, service-managed key. |
 | SEC-23 | Store-to-hub sync uses HTTPS. | built |  |
 | SEC-24 | Store PC data is encrypted at rest and backups leave the PC encrypted. | gap | SQL Server Express has no TDE; no BitLocker evidence; backups stay on the same disk (`STORE-PC-20261124.md:68`). Local SQL uses `TrustServerCertificate=True` on loopback only (`start-store.ps1:21`). |
 | SEC-25 | Bearer secrets are stored only as hashes: order access token, client address, request body, staff session token, node secret. | built | `WebOrderVerticalSliceTests.cs` (`Order_status_needs_its_token`) proves the token is required, not that only the hash is stored. Staff token hashing is tested under LOGIN-03. |
@@ -77,7 +77,7 @@ Result: launch is blocked. 58 of 97 control rows lack full evidence, and 3 of 7 
 | SEC-44 | The hub sends CSP (`default-src 'self'`, `frame-ancestors 'none'`), `nosniff` and `Referrer-Policy: no-referrer` on every response. | tested | `HostingTests.cs` (`Every_response_carries_the_security_headers`). |
 | SEC-45 | Public routes answer only public error codes; an internal error says "Error interno." plus a trace id. | tested | `WebStorePublicTests.cs` (`AssertPublicAsync` checks the public code). |
 | SEC-46 | Application logs name order ids, paths and error codes, never contact details; the client address is kept only as a hash. | partial | Every logged exception goes through `SafeLog.Describe`: code, SQL number, procedure, line and stack, never the message. `SafeLogTests.cs` (`A_sql_error_that_quotes_an_email_is_logged_without_it`) uses a real SQL duplicate key that quotes an email. No test scans every log template, and the address hash is not tested here. |
-| SEC-47 | Telemetry (Application Insights) holds no personal data: client IP masking and URL contents are confirmed. | gap | Readback owed. `TelemetryTests.cs` only proves the host starts. |
+| SEC-47 | Telemetry (Application Insights) holds no personal data: client IP masking and URL contents are confirmed. | tested | Readback 2026-11-27 (`docs/public-software/evidence/azure-readback-20261127.md`): IP masking not disabled; over 30 days, 0 of about 160,000 rows hold a client IP or an email; URL query keys are `date`, `period`, `code` and token-call keys only. A regex check, not a full personal-data search. |
 | SEC-48 | The OpenAPI document is not public in Production. | tested | `HostingTests.cs` (`The_openapi_document_is_served_outside_production_only`): 404 in Production, 200 in Testing. Azure answers 404 since revision `ca-savia-api--g0ae5462-1` (`savia/docs/deploy/AZURE.md`). |
 
 ## Login controls (LOGIN-RULES)
